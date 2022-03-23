@@ -1,7 +1,7 @@
 'use strict'
 
 const test = require('tape-promise').default(require('tape'))
-const fs = require('fs-extra')
+const fs = require('fs/promises')
 const download = require('../src/download')
 const { path: detectLocation } = require('../')
 const clean = require('./fixtures/clean')

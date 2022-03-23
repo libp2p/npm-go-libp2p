@@ -1,4 +1,4 @@
-const fs = require('fs-extra')
+const fs = require('fs/promises')
 const path = require('path')
 const test = require('tape')
 const execa = require('execa')
@@ -11,9 +11,25 @@ const cachedir = require('cachedir')
 const expectedVersion = require('../package.json').version
 
 async function clean () {
-  await fs.remove(path.join(__dirname, 'fixtures', 'example-project', 'node_modules'))
-  await fs.remove(path.join(__dirname, 'fixtures', 'example-project', 'package-lock.json'))
-  await fs.remove(cachedir('npm-go-libp2p'))
+  await fs.rmdir(path.join(__dirname, 'fixtures', 'example-project', 'node_modules'), {
+    recursive: true
+  }).catch(err => {
+    if (err.code !== 'ENOENT') {
+      throw err
+    }
+  })
+  await fs.rm(path.join(__dirname, 'fixtures', 'example-project', 'package-lock.json')).catch(err => {
+    if (err.code !== 'ENOENT') {
+      throw err
+    }
+  })
+  await fs.rmdir(cachedir('npm-go-libp2p'), {
+    recursive: true
+  }).catch(err => {
+    if (err.code !== 'ENOENT') {
+      throw err
+    }
+  })
 }
 
 test.onFinish(clean)
