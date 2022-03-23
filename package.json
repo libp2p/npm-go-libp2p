@@ -1,6 +1,6 @@
 {
   "name": "go-libp2p",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Install the latest go-libp2p binary",
   "main": "src/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "pre-commit": "restore-bin",
   "bin": {
-    "libp2p": "bin/p2pd"
+    "go-libp2p": "bin/p2pd"
   },
   "files": [
     "bin/p2pd",
