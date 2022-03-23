@@ -12,7 +12,7 @@
   },
   "pre-commit": "restore-bin",
   "bin": {
-    "libp2p": "bin/libp2p"
+    "libp2p": "bin/p2pd"
   },
   "files": [
     "bin",
