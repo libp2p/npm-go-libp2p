@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "postinstall": "node src/post-install.js",
-    "restore-bin": "git reset -- bin/libp2p && git checkout -- bin/libp2p",
+    "restore-bin": "git reset -- bin/p2pd && git checkout -- bin/p2pd",
     "test": "tape test/*.js | tap-spec",
     "lint": "tsc --noEmit && standard",
     "prepublishOnly": "tsc"
@@ -33,13 +33,14 @@
     "url": "https://github.com/libp2p/npm-go-libp2p/issues"
   },
   "homepage": "https://github.com/libp2p/npm-go-libp2p",
-  "types": "./dist/src/types.d.ts",
+  "types": "./dist/src/index.d.ts",
   "devDependencies": {
     "@types/got": "^9.6.12",
     "@types/gunzip-maybe": "^1.4.0",
     "@types/tar-fs": "^2.0.1",
     "@types/unzip-stream": "^0.3.1",
     "execa": "^4.0.1",
+    "pre-commit": "^1.2.2",
     "standard": "^13.1.0",
     "tap-spec": "^5.0.0",
     "tape": "^4.13.2",
