@@ -162,9 +162,8 @@ async function download ({ version, platform, arch, installPath, distUrl }) {
 /**
  * @param {object} options
  * @param {string} options.depBin
- * @param {string} options.version
  */
-async function link ({ depBin, version }) {
+async function link ({ depBin }) {
   let localBin = path.resolve(path.join(__dirname, '..', 'bin', 'p2pd'))
 
   if (isWin) {
