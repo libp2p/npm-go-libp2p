@@ -66,13 +66,12 @@ async function cachingFetchAndVerify (url) {
 }
 
 /**
- * @param {string} url
  * @param {string} installPath
  * @param {import('stream').Readable} stream
  */
-function unpack (url, installPath, stream) {
+function unpack (installPath, stream) {
   return new Promise((resolve, reject) => {
-    if (url.endsWith('.zip')) {
+    if (isWin) {
       return stream.pipe(
         unzip
           .Extract({ path: installPath })
@@ -154,10 +153,10 @@ async function download ({ version, platform, arch, installPath, distUrl }) {
   const url = await getDownloadURL(version, platform, arch, distUrl)
   const data = await cachingFetchAndVerify(url)
 
-  await unpack(url, installPath, data)
+  await unpack(installPath, data)
   console.info(`Unpacked ${installPath}`)
 
-  return path.join(installPath, `p2pd${platform === 'windows' ? '.exe' : ''}`)
+  return path.join(installPath, `p2pd${isWin ? '.exe' : ''}`)
 }
 
 /**
@@ -167,10 +166,6 @@ async function download ({ version, platform, arch, installPath, distUrl }) {
 async function link ({ depBin }) {
   let localBin = path.resolve(path.join(__dirname, '..', 'bin', 'p2pd'))
 
-  if (isWin) {
-    localBin += '.exe'
-  }
-
   if (!fs.existsSync(depBin)) {
     throw new Error('p2pd binary not found. maybe go-libp2p did not install correctly?')
   }
@@ -179,25 +174,30 @@ async function link ({ depBin }) {
     fs.unlinkSync(localBin)
   }
 
-  console.info('Linking', depBin, 'to', localBin)
-  fs.symlinkSync(depBin, localBin)
-
   if (isWin) {
+    localBin += '.exe'
+
+    console.info('Moving', depBin, 'to', localBin)
+    fs.renameSync(depBin, localBin)
+
     // On Windows, update the shortcut file to use the .exe
     const cmdFile = path.join(__dirname, '..', '..', 'p2pd.cmd')
 
     fs.writeFileSync(cmdFile, `@ECHO OFF
   "%~dp0\\node_modules\\go-libp2p\\bin\\p2pd.exe" %*`)
+  } else {
+    console.info('Linking', depBin, 'to', localBin)
+    fs.symlinkSync(depBin, localBin)
   }
 
   // test libp2p installed correctly.
-  var result = cproc.spawnSync(localBin, ['--help'])
+  const result = cproc.spawnSync(localBin, ['--help'])
   if (result.error) {
     throw new Error('p2pd binary failed: ' + result.error)
   }
 
-  var outstr = result.stderr.toString()
-  var m = /Usage of/.exec(outstr)
+  const outstr = result.stderr.toString()
+  const m = /Usage of/.exec(outstr)
 
   if (!m) {
     console.info(outstr, m)
