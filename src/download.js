@@ -21,6 +21,7 @@ const isWin = process.platform === 'win32'
 const cproc = require('child_process')
 // @ts-ignore no types
 const Hash = require('ipfs-only-hash')
+const os = require('os')
 
 /**
  * avoid expensive fetch if file is already in cache
@@ -108,7 +109,7 @@ function cleanArguments (version, platform, arch, installPath) {
 
   return {
     version: process.env.TARGET_VERSION || version || conf.version,
-    platform: process.env.TARGET_OS || platform || goenv.GOOS,
+    platform: process.env.TARGET_OS || platform || os.platform(),
     arch: process.env.TARGET_ARCH || arch || goenv.GOARCH,
     distUrl: process.env.GO_LIBP2P_DIST_URL || conf.distUrl,
     installPath: installPath ? path.resolve(installPath) : process.cwd()
@@ -129,7 +130,7 @@ async function getDownloadURL (version, platform, arch, distUrl) {
   }
 
   if (platform !== 'darwin' && platform !== 'linux' && platform !== 'win32') {
-    throw new Error(`Invalid platform specified, must be one of 'darwin', 'linux' or 'win32'}`)
+    throw new Error(`Invalid platform specified - "${platform}", must be one of 'darwin', 'linux' or 'win32'}`)
   }
 
   const cid = versionData[platform]
