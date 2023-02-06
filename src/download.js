@@ -103,7 +103,7 @@ function cleanArguments (version, platform, arch, installPath) {
     cwd: process.env.INIT_CWD || process.cwd(),
     defaults: {
       version: version || latest,
-      distUrl: 'https://ipfs.io'
+      distUrl: 'https://strn.pl'
     }
   })
 
