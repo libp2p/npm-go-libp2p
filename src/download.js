@@ -58,7 +58,7 @@ async function cachingFetchAndVerify(url) {
   if (calculatedSha !== filename) {
     console.log(`Expected CID: ${filename}`)
     console.log(`Actual   CID: ${calculatedSha}`)
-    throw new Error(`SHA512 of ${cachedFilePath}' (${calculatedSha}) does not match expected value from ${cachedFilePath}`)
+    throw new Error(`SHA256 of ${cachedFilePath}' (${calculatedSha}) does not match expected value from ${cachedFilePath}`)
   }
   console.log(`OK ${calculatedSha}`)
 
