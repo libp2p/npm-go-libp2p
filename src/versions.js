@@ -13,6 +13,11 @@
  * @type {Record<string, Version>}
  */
 const versions = {
+  'v0.12.0': {
+    darwin: 'QmRWDoPsw6a5eTCMCA3GAnwWjGXFz1URNn9obvcxrypP4W',
+    linux: 'QmQDjWkPejcfj8NuafB59tLubKXfCECgGTY1ayV5qjp7QR',
+    win32: 'QmYrYKthxvoFZnLFP1hJX7BFTvQgoSip3mwNNuaKDZ3VTU'
+  },
   'v0.11.0': {
     darwin: 'QmbRgQrwZFyR6cjwuN6dgSfadmr9KrLmM72hRJ1B3K6659',
     linux: 'QmW6hANCx63LR2Unb8TWwB7UkDC2SNKUV5QbaWzSyjsoPf',
@@ -52,6 +57,6 @@ const versions = {
 }
 
 module.exports = {
-  latest: 'v0.11.0',
+  latest: 'v0.12.0',
   versions
 }
