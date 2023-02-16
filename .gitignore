@@ -13,3 +13,7 @@ package-lock.json
 # Where the binaries go
 go-ipfs
 p2pd
+bin/*.zip
+bin/*.tar.gz
+bin/go-libp2p-daemon
+bin/p2pd-*
