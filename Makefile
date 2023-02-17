@@ -10,8 +10,11 @@ $(WORKDIR)/go-libp2p-daemon:
 clone: $(WORKDIR)/go-libp2p-daemon
 	git clone https://github.com/libp2p/go-libp2p-daemon.git bin/go-libp2p-daemon; cd $(WORKDIR)/go-libp2p-daemon && git checkout $(COMMIT)
 
-$(TARGETS): clone
+darwin: clone
 	cd bin/go-libp2p-daemon/p2pd && GOOS=$@ go build -o p2pd-$@ && mv p2pd-$@ ../../
+
+linux: clone
+	cd bin/go-libp2p-daemon/p2pd && GOARCH=amd64 GOOS=$@ go build -o p2pd-$@ && mv p2pd-$@ ../../
 
 $(WORKDIR)/p2pd-linux.tar.gz: linux
 	tar -czf $@ $(WORKDIR)/p2pd-linux
