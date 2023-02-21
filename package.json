@@ -2,58 +2,90 @@
   "name": "go-libp2p",
   "version": "0.0.6",
   "description": "Install the latest go-libp2p binary",
-  "main": "src/index.js",
-  "scripts": {
-    "postinstall": "node src/post-install.js",
-    "restore-bin": "git reset -- bin/p2pd && git checkout -- bin/p2pd",
-    "test": "tape test/*.js | tap-spec",
-    "lint": "tsc --noEmit && standard",
-    "prepublishOnly": "tsc"
-  },
-  "pre-commit": "restore-bin",
-  "bin": {
-    "go-libp2p": "bin/p2pd"
-  },
-  "files": [
-    "bin/p2pd",
-    "dist",
-    "src"
-  ],
+  "author": "Protocol Labs, Inc.",
+  "license": "Apache-2.0 OR MIT",
+  "homepage": "https://github.com/libp2p/npm-go-libp2p#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ipfs/npm-go-libp2p.git"
+    "url": "git+https://github.com/libp2p/npm-go-libp2p.git"
   },
-  "keywords": [
-    "libp2p",
-    "install"
-  ],
-  "author": "Protocol Labs, Inc.",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/libp2p/npm-go-libp2p/issues"
   },
-  "homepage": "https://github.com/libp2p/npm-go-libp2p",
+  "keywords": [
+    "install",
+    "libp2p"
+  ],
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
+  "bin": {
+    "go-libp2p": "bin/p2pd"
+  },
+  "type": "module",
   "types": "./dist/src/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "*",
+        "dist/*",
+        "dist/src/*",
+        "dist/src/*/index"
+      ],
+      "src/*": [
+        "*",
+        "dist/*",
+        "dist/src/*",
+        "dist/src/*/index"
+      ]
+    }
+  },
+  "files": [
+    "src",
+    "dist",
+    "!dist/test",
+    "!**/*.tsbuildinfo"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./src/index.js"
+    }
+  },
+  "eslintConfig": {
+    "extends": "ipfs",
+    "parserOptions": {
+      "sourceType": "module"
+    },
+    "ignorePatterns": [
+      "bin/*"
+    ]
+  },
+  "scripts": {
+    "postinstall": "node src/post-install.js",
+    "restore-bin": "git reset -- bin/p2pd && git checkout -- bin/p2pd",
+    "test": "npm run test:node",
+    "test:node": "aegir test -t node",
+    "lint": "aegir lint"
+  },
+  "dependencies": {
+    "cachedir": "^2.3.0",
+    "got": "^12.5.3",
+    "gunzip-maybe": "^1.4.2",
+    "ipfs-only-hash": "^4.0.0",
+    "pkg-conf": "^4.0.0",
+    "tar-fs": "^2.1.0",
+    "unzip-stream": "^0.3.0"
+  },
   "devDependencies": {
     "@types/got": "^9.6.12",
     "@types/gunzip-maybe": "^1.4.0",
     "@types/tar-fs": "^2.0.1",
     "@types/unzip-stream": "^0.3.1",
-    "execa": "^4.0.1",
-    "pre-commit": "^1.2.2",
-    "standard": "^13.1.0",
-    "tap-spec": "^5.0.0",
-    "tape": "^4.13.2",
-    "tape-promise": "^4.0.0",
-    "typescript": "^4.3.5"
+    "aegir": "^38.1.6",
+    "execa": "^7.0.0",
+    "pre-commit": "^1.2.2"
   },
-  "dependencies": {
-    "cachedir": "^2.3.0",
-    "got": "^11.7.0",
-    "gunzip-maybe": "^1.4.2",
-    "ipfs-only-hash": "^4.0.0",
-    "pkg-conf": "^3.1.0",
-    "tar-fs": "^2.1.0",
-    "unzip-stream": "^0.3.0"
-  }
+  "pre-commit": "restore-bin"
 }

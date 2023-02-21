@@ -1,14 +1,18 @@
-'use strict'
+import fs from 'node:fs'
+import { resolve, join } from 'node:path'
+import * as url from 'node:url'
 
-const fs = require('fs')
-const path = require('path')
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
-module.exports.path = function () {
+/**
+ * @returns {string}
+ */
+export function path () {
   const paths = [
-    path.resolve(path.join(__dirname, '..', 'p2pd')),
-    path.resolve(path.join(__dirname, '..', 'p2pd.exe')),
-    path.resolve(path.join(__dirname, '..', 'bin/p2pd')),
-    path.resolve(path.join(__dirname, '..', 'bin/p2pd.exe')),
+    resolve(join(__dirname, '..', 'p2pd')),
+    resolve(join(__dirname, '..', 'p2pd.exe')),
+    resolve(join(__dirname, '..', 'bin/p2pd')),
+    resolve(join(__dirname, '..', 'bin/p2pd.exe'))
   ]
 
   for (const bin of paths) {

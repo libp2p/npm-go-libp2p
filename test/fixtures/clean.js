@@ -1,15 +1,16 @@
-'use strict'
+import fs from 'node:fs/promises'
+import path from 'path'
+import * as url from 'node:url'
 
-const fs = require('fs/promises')
-const path = require('path')
-const execa = require('execa')
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
-module.exports = async function clean () {
+export async function clean () {
   await fs.rm(path.resolve(__dirname, '../../p2pd')).catch(err => {
     if (err.code !== 'ENOENT') {
       throw err
     }
   })
+
   await fs.rm(path.resolve(__dirname, '../../bin/p2pd')).catch(err => {
     if (err.code !== 'ENOENT') {
       throw err

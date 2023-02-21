@@ -1,14 +1,12 @@
-'use strict'
-
 function getGoOs () {
   switch (process.platform) {
     case 'sunos':
       return 'solaris'
     case 'win32':
       return 'windows'
+    default:
+      return process.platform
   }
-
-  return process.platform
 }
 
 function getGoArch () {
@@ -21,12 +19,10 @@ function getGoArch () {
       return 'arm'
     case 'arm64':
       return 'arm64'
+    default:
+      return process.arch
   }
-
-  return process.arch
 }
 
-module.exports = {
-  GOOS: getGoOs(),
-  GOARCH: getGoArch()
-}
+export const GOOS = getGoOs()
+export const GOARCH = getGoArch()
