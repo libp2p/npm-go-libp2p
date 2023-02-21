@@ -15,7 +15,7 @@ export const latest = 'v0.12.0'
  */
 export const versions = {
   'v0.12.0': {
-    darwin: 'QmRWDoPsw6a5eTCMCA3GAnwWjGXFz1URNn9obvcxrypP4W',
+    darwin: 'QmeimKZyjcBnuXmAD9zMnSjM9JodTbgGT3gutofkTqz9rE',
     linux: 'QmSMiiCCmu4YGdDfJL8cpbEeDtUGUULnvHtTBCeio8zbe7',
     win32: 'QmYrYKthxvoFZnLFP1hJX7BFTvQgoSip3mwNNuaKDZ3VTU'
   },
