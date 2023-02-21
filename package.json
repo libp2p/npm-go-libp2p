@@ -67,7 +67,8 @@
     "restore-bin": "git reset -- bin/p2pd && git checkout -- bin/p2pd",
     "test": "npm run test:node",
     "test:node": "aegir test -t node",
-    "lint": "aegir lint"
+    "lint": "aegir lint",
+    "release": "aegir release"
   },
   "dependencies": {
     "cachedir": "^2.3.0",
