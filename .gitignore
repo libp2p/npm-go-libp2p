@@ -8,3 +8,4 @@ package-lock.json
 yarn.lock
 .vscode
 bin/p2pd-*
+bin/go-libp2p-daemon

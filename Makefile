@@ -11,7 +11,7 @@ clone: $(WORKDIR)/go-libp2p-daemon
 	git clone https://github.com/libp2p/go-libp2p-daemon.git bin/go-libp2p-daemon; cd $(WORKDIR)/go-libp2p-daemon && git checkout $(COMMIT)
 
 darwin: clone
-	cd bin/go-libp2p-daemon/p2pd && GOOS=$@ go build -o p2pd-$@ && mv p2pd-$@ ../../
+	cd bin/go-libp2p-daemon/p2pd && GOOS=$@ GOARCH=amd64 go build -o p2pd-$@-amd64 && GOOS=$@ GOARCH=arm64 go build -o p2pd-$@-arm64 && lipo -create -output p2pd-$@ p2pd-$@-amd64 p2pd-$@-arm64 && mv p2pd-$@ ../../
 
 linux: clone
 	cd bin/go-libp2p-daemon/p2pd && GOARCH=amd64 GOOS=$@ go build -o p2pd-$@ && mv p2pd-$@ ../../
