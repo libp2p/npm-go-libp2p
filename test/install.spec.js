@@ -15,7 +15,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 */
 
 async function clean () {
-  await fs.rmdir(path.join(__dirname, 'fixtures', 'example-project', 'node_modules'), {
+  await fs.rm(path.join(__dirname, 'fixtures', 'example-project', 'node_modules'), {
     recursive: true
   }).catch(err => {
     if (err.code !== 'ENOENT') {
@@ -27,7 +27,7 @@ async function clean () {
       throw err
     }
   })
-  await fs.rmdir(cachedir('npm-go-libp2p'), {
+  await fs.rm(cachedir('npm-go-libp2p'), {
     recursive: true
   }).catch(err => {
     if (err.code !== 'ENOENT') {

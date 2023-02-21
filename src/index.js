@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import { resolve, join } from 'node:path'
 import * as url from 'node:url'
+const isWin = process.platform === 'win32'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
@@ -8,11 +9,12 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
  * @returns {string}
  */
 export function path () {
-  const paths = [
-    resolve(join(__dirname, '..', 'p2pd')),
+  const paths = isWin ? [
     resolve(join(__dirname, '..', 'p2pd.exe')),
-    resolve(join(__dirname, '..', 'bin/p2pd')),
     resolve(join(__dirname, '..', 'bin/p2pd.exe'))
+  ] : [
+    resolve(join(__dirname, '..', 'p2pd')),
+    resolve(join(__dirname, '..', 'bin/p2pd'))
   ]
 
   for (const bin of paths) {
