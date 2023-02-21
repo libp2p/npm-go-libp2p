@@ -1,6 +1,6 @@
-'use strict'
+/* eslint-disable no-console */
 
-const download = require('./download')
+import { download } from './download.js'
 
 download()
   .catch(err => {

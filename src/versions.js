@@ -1,4 +1,3 @@
-'use strict'
 
 /**
  * @typedef {object} Version
@@ -7,14 +6,16 @@
  * @property {string} win32
  */
 
+export const latest = 'v0.12.0'
+
 /**
  * map version to ipfs cid
  *
  * @type {Record<string, Version>}
  */
-const versions = {
+export const versions = {
   'v0.12.0': {
-    darwin: 'QmRWDoPsw6a5eTCMCA3GAnwWjGXFz1URNn9obvcxrypP4W',
+    darwin: 'QmRFbrfLm4DWDmZHgubAVqXshRaV5vSbzhM5D7kAmZrdug',
     linux: 'QmSMiiCCmu4YGdDfJL8cpbEeDtUGUULnvHtTBCeio8zbe7',
     win32: 'QmYrYKthxvoFZnLFP1hJX7BFTvQgoSip3mwNNuaKDZ3VTU'
   },
@@ -54,9 +55,4 @@ const versions = {
     linux: 'Qmdu8WCFUW43u8mHpbj2jV2ZSB1mP7JcjnJJcJ1oF6iMwW',
     win32: 'QmP5P6AYQjbG26j5qrzbohSqAW3AP2Mvsuun3fS99hC1x6'
   }
-}
-
-module.exports = {
-  latest: 'v0.12.0',
-  versions
 }

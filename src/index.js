@@ -1,15 +1,23 @@
-'use strict'
+import fs from 'node:fs'
+import { resolve, join } from 'node:path'
+import * as url from 'node:url'
+const isWin = process.platform === 'win32'
 
-const fs = require('fs')
-const path = require('path')
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
-module.exports.path = function () {
-  const paths = [
-    path.resolve(path.join(__dirname, '..', 'p2pd')),
-    path.resolve(path.join(__dirname, '..', 'p2pd.exe')),
-    path.resolve(path.join(__dirname, '..', 'bin/p2pd')),
-    path.resolve(path.join(__dirname, '..', 'bin/p2pd.exe')),
-  ]
+/**
+ * @returns {string}
+ */
+export function path () {
+  const paths = isWin
+    ? [
+        resolve(join(__dirname, '..', 'p2pd.exe')),
+        resolve(join(__dirname, '..', 'bin/p2pd.exe'))
+      ]
+    : [
+        resolve(join(__dirname, '..', 'p2pd')),
+        resolve(join(__dirname, '..', 'bin/p2pd'))
+      ]
 
   for (const bin of paths) {
     if (fs.existsSync(bin)) {

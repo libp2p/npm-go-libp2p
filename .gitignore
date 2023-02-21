@@ -1,19 +1,12 @@
-# Logs
-logs
-*.log
-
-# Dependency directory
-# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
+build
 dist
-
-# while testing npm5
+.docs
+.coverage
+node_modules
 package-lock.json
-
-# Where the binaries go
-go-ipfs
-p2pd
-bin/*.zip
-bin/*.tar.gz
-bin/go-libp2p-daemon
+yarn.lock
+.vscode
 bin/p2pd-*
+bin/p2pd.exe
+bin/go-libp2p-daemon

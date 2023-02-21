@@ -1,30 +1,34 @@
-'use strict'
-
 /*
   Download go-libp2p distribution package for desired version.
   API:
     download([<version>])
 */
 
-const goenv = require('./go-platform')
-const gunzip = require('gunzip-maybe')
-const path = require('path')
-const got = require('got').default
-const tarFS = require('tar-fs')
-const unzip = require('unzip-stream')
-const { latest, versions } = require('./versions')
-const fs = require('fs')
-// @ts-ignore no types
-const cachedir = require('cachedir')
-const pkgConf = require('pkg-conf')
+/* eslint-disable no-console */
+
+import * as goenv from './go-platform.js'
+import gunzip from 'gunzip-maybe'
+import path from 'node:path'
+import got from 'got'
+import tarFS from 'tar-fs'
+import unzip from 'unzip-stream'
+import { latest, versions } from './versions.js'
+import fs from 'node:fs'
+// @ts-expect-error no types
+import cachedir from 'cachedir'
+import { packageConfigSync } from 'pkg-conf'
+import cproc from 'node:child_process'
+// @ts-expect-error no types
+import Hash from 'ipfs-only-hash'
+import os from 'node:os'
+import * as url from 'node:url'
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 const isWin = process.platform === 'win32'
-const cproc = require('child_process')
-// @ts-ignore no types
-const Hash = require('ipfs-only-hash')
-const os = require('os')
 
 /**
  * avoid expensive fetch if file is already in cache
+ *
  * @param {string} url
  */
 async function cachingFetchAndVerify (url) {
@@ -98,7 +102,7 @@ function unpack (installPath, stream) {
  * @param {string} [installPath]
  */
 function cleanArguments (version, platform, arch, installPath) {
-  const conf = pkgConf.sync('go-libp2p', {
+  const conf = packageConfigSync('go-libp2p', {
     cwd: process.env.INIT_CWD || process.cwd(),
     defaults: {
       version: version || latest,
@@ -149,7 +153,7 @@ async function getDownloadURL (version, platform, arch, distUrl) {
  * @param {string} options.installPath
  * @param {string} options.distUrl
  */
-async function download ({ version, platform, arch, installPath, distUrl }) {
+async function downloadFile ({ version, platform, arch, installPath, distUrl }) {
   const url = await getDownloadURL(version, platform, arch, distUrl)
   const data = await cachingFetchAndVerify(url)
 
@@ -160,12 +164,13 @@ async function download ({ version, platform, arch, installPath, distUrl }) {
 }
 
 /** Different versions return the exe differently. Handle this here
+ *
  * @param {object} options
  * @param {string} options.installPath
  * @param {string} options.platform
  * @returns string
  */
-async function findBin({ installPath, platform }) {
+async function findBin ({ installPath, platform }) {
   const binSuffix = platform === 'windows' ? '.exe' : ''
   const rawBin = path.join(installPath, 'p2pd')
   const platformScopedBin = path.join(installPath, 'bin', `p2pd-${platform}${binSuffix}`)
@@ -229,12 +234,13 @@ async function link ({ depBin }) {
  * @param {string} [platform]
  * @param {string} [arch]
  * @param {string} [installPath]
+ * @returns {Promise<string>}
  */
-module.exports = async (version, platform, arch, installPath) => {
+export async function download (version, platform, arch, installPath) {
   const args = cleanArguments(version, platform, arch, installPath)
 
   return link({
     ...args,
-    depBin: await download(args)
+    depBin: await downloadFile(args)
   })
 }
