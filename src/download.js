@@ -58,7 +58,7 @@ async function cachingFetchAndVerify (url) {
   if (calculatedSha !== filename) {
     console.log(`Expected CID: ${filename}`)
     console.log(`Actual   CID: ${calculatedSha}`)
-    throw new Error(`SHA512 of ${cachedFilePath}' (${calculatedSha}) does not match expected value from ${cachedFilePath}`)
+    throw new Error(`CID of ${cachedFilePath}' (${calculatedSha}) does not match expected value from ${cachedFilePath}`)
   }
   console.log(`OK ${calculatedSha}`)
 
@@ -156,7 +156,24 @@ async function download ({ version, platform, arch, installPath, distUrl }) {
   await unpack(installPath, data)
   console.info(`Unpacked ${installPath}`)
 
-  return path.join(installPath, `p2pd${isWin ? '.exe' : ''}`)
+  return findBin({ installPath, platform })
+}
+
+/** Different versions return the exe differently. Handle this here
+ * @param {object} options
+ * @param {string} options.installPath
+ * @param {string} options.platform
+ * @returns string
+ */
+async function findBin({ installPath, platform }) {
+  const binSuffix = platform === 'windows' ? '.exe' : ''
+  const rawBin = path.join(installPath, 'p2pd')
+  const platformScopedBin = path.join(installPath, 'bin', `p2pd-${platform}${binSuffix}`)
+  if (await fs.promises.stat(rawBin).then(() => true).catch(() => false)) {
+    return rawBin
+  }
+
+  return platformScopedBin
 }
 
 /**

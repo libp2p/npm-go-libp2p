@@ -10,5 +10,9 @@ module.exports = async function clean () {
       throw err
     }
   })
-  await execa('git', ['checkout', '--', path.resolve(__dirname, '../../bin/p2pd')])
+  await fs.rm(path.resolve(__dirname, '../../bin/p2pd')).catch(err => {
+    if (err.code !== 'ENOENT') {
+      throw err
+    }
+  })
 }
