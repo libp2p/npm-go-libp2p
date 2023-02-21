@@ -27,7 +27,7 @@ const os = require('os')
  * avoid expensive fetch if file is already in cache
  * @param {string} url
  */
-async function cachingFetchAndVerify(url) {
+async function cachingFetchAndVerify (url) {
   const cacheDir = process.env.NPM_GO_LIBP2P_CACHE || cachedir('npm-go-libp2p')
   const filename = url.split('/').pop()
 
@@ -70,7 +70,7 @@ async function cachingFetchAndVerify(url) {
  * @param {string} installPath
  * @param {import('stream').Readable} stream
  */
-function unpack(url, installPath, stream) {
+function unpack (url, installPath, stream) {
   return new Promise((resolve, reject) => {
     if (url.endsWith('.zip')) {
       return stream.pipe(
@@ -98,7 +98,7 @@ function unpack(url, installPath, stream) {
  * @param {string} [arch]
  * @param {string} [installPath]
  */
-function cleanArguments(version, platform, arch, installPath) {
+function cleanArguments (version, platform, arch, installPath) {
   const conf = pkgConf.sync('go-libp2p', {
     cwd: process.env.INIT_CWD || process.cwd(),
     defaults: {
@@ -122,7 +122,7 @@ function cleanArguments(version, platform, arch, installPath) {
  * @param {string} arch
  * @param {string} distUrl
  */
-async function getDownloadURL(version, platform, arch, distUrl) {
+async function getDownloadURL (version, platform, arch, distUrl) {
   const versionData = versions[version]
 
   if (versionData == null) {
@@ -150,7 +150,7 @@ async function getDownloadURL(version, platform, arch, distUrl) {
  * @param {string} options.installPath
  * @param {string} options.distUrl
  */
-async function download({ version, platform, arch, installPath, distUrl }) {
+async function download ({ version, platform, arch, installPath, distUrl }) {
   const url = await getDownloadURL(version, platform, arch, distUrl)
   const data = await cachingFetchAndVerify(url)
 
@@ -181,7 +181,7 @@ async function findBin({ installPath, platform }) {
  * @param {object} options
  * @param {string} options.depBin
  */
-async function link({ depBin }) {
+async function link ({ depBin }) {
   let localBin = path.resolve(path.join(__dirname, '..', 'bin', 'p2pd'))
 
   if (isWin) {
