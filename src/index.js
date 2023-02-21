@@ -9,13 +9,15 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
  * @returns {string}
  */
 export function path () {
-  const paths = isWin ? [
-    resolve(join(__dirname, '..', 'p2pd.exe')),
-    resolve(join(__dirname, '..', 'bin/p2pd.exe'))
-  ] : [
-    resolve(join(__dirname, '..', 'p2pd')),
-    resolve(join(__dirname, '..', 'bin/p2pd'))
-  ]
+  const paths = isWin
+    ? [
+        resolve(join(__dirname, '..', 'p2pd.exe')),
+        resolve(join(__dirname, '..', 'bin/p2pd.exe'))
+      ]
+    : [
+        resolve(join(__dirname, '..', 'p2pd')),
+        resolve(join(__dirname, '..', 'bin/p2pd'))
+      ]
 
   for (const bin of paths) {
     if (fs.existsSync(bin)) {
