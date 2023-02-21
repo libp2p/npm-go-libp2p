@@ -5,15 +5,43 @@ import * as url from 'node:url'
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 export async function clean () {
-  await fs.rm(path.resolve(__dirname, '../../p2pd')).catch(err => {
-    if (err.code !== 'ENOENT') {
-      throw err
-    }
-  })
+  await Promise.all([
+    rm(path.resolve(__dirname, '../../p2pd')),
+    rm(path.resolve(__dirname, '../../p2pd.exe')),
+    rm(path.resolve(__dirname, '../../bin/p2pd')),
+    rm(path.resolve(__dirname, '../../bin/p2pd.exe'))
+  ])
+}
 
-  await fs.rm(path.resolve(__dirname, '../../bin/p2pd')).catch(err => {
-    if (err.code !== 'ENOENT') {
-      throw err
+/**
+ * @param {string} path
+ */
+async function rm (path) {
+  let attempts = 5
+
+  while (true) {
+    try {
+      attempts--
+      await fs.rm(path)
+    } catch (/** @type {any} */ err) {
+      if (err.code === 'ENOENT') {
+        return
+      }
+
+      if (attempts === 0) {
+        throw err
+      }
+
+      // windows does not let you do file system operations in quick succession
+      if (err.code === 'EPERM') {
+        await new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(null)
+          }, 1000)
+        })
+      } else {
+        throw err
+      }
     }
-  })
+  }
 }
