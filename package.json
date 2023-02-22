@@ -68,7 +68,8 @@
     "test": "npm run test:node",
     "test:node": "aegir test -t node",
     "lint": "aegir lint",
-    "release": "aegir release"
+    "release": "aegir release",
+    "build": "aegir build --bundle false"
   },
   "dependencies": {
     "cachedir": "^2.3.0",
