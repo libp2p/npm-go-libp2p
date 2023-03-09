@@ -22,6 +22,8 @@ import cproc from 'node:child_process'
 import Hash from 'ipfs-only-hash'
 import os from 'node:os'
 import * as url from 'node:url'
+import util from 'node:util'
+import { CID } from 'multiformats/cid'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 const isWin = process.platform === 'win32'
@@ -30,8 +32,9 @@ const isWin = process.platform === 'win32'
  * avoid expensive fetch if file is already in cache
  *
  * @param {string} url
+ * @param {string} cid
  */
-async function cachingFetchAndVerify (url) {
+async function cachingFetchAndVerify (url, cid) {
   const cacheDir = process.env.NPM_GO_LIBP2P_CACHE || cachedir('npm-go-libp2p')
   const filename = url.split('/').pop()
 
@@ -59,8 +62,8 @@ async function cachingFetchAndVerify (url) {
 
   const data = fs.readFileSync(cachedFilePath)
   const calculatedSha = await Hash.of(data)
-  if (calculatedSha !== filename) {
-    console.log(`Expected CID: ${filename}`)
+  if (calculatedSha !== cid) {
+    console.log(`Expected CID: ${cid}`)
     console.log(`Actual   CID: ${calculatedSha}`)
     throw new Error(`CID of ${cachedFilePath}' (${calculatedSha}) does not match expected value from ${cachedFilePath}`)
   }
@@ -106,7 +109,7 @@ function cleanArguments (version, platform, arch, installPath) {
     cwd: process.env.INIT_CWD || process.cwd(),
     defaults: {
       version: version || latest,
-      distUrl: 'https://w3s.link'
+      distUrl: 'https://%s.ipfs.w3s.link'
     }
   })
 
@@ -142,7 +145,10 @@ async function getDownloadURL (version, platform, arch, distUrl) {
     throw new Error(`No binary available for platform '${platform}'`)
   }
 
-  return `${distUrl}/ipfs/${cid}`
+  return {
+    url: util.format(distUrl, CID.parse(cid).toV1().toString()),
+    cid
+  }
 }
 
 /**
@@ -154,8 +160,8 @@ async function getDownloadURL (version, platform, arch, distUrl) {
  * @param {string} options.distUrl
  */
 async function downloadFile ({ version, platform, arch, installPath, distUrl }) {
-  const url = await getDownloadURL(version, platform, arch, distUrl)
-  const data = await cachingFetchAndVerify(url)
+  const { cid, url } = await getDownloadURL(version, platform, arch, distUrl)
+  const data = await cachingFetchAndVerify(url, cid)
 
   await unpack(installPath, data)
   console.info(`Unpacked ${installPath}`)
