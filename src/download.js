@@ -24,6 +24,8 @@ import os from 'node:os'
 import * as url from 'node:url'
 import util from 'node:util'
 import { CID } from 'multiformats/cid'
+import retry from 'p-retry'
+import delay from 'delay'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 const isWin = process.platform === 'win32'
@@ -33,10 +35,13 @@ const isWin = process.platform === 'win32'
  *
  * @param {string} url
  * @param {string} cid
+ * @param {{ retries?: number, retryDelay?: number }} [options]
  */
-async function cachingFetchAndVerify (url, cid) {
+async function cachingFetchAndVerify (url, cid, options = {}) {
   const cacheDir = process.env.NPM_GO_LIBP2P_CACHE || cachedir('npm-go-libp2p')
   const filename = url.split('/').pop()
+  const retries = options.retries ?? 10
+  const retryDelay = options.retryDelay ?? 5000
 
   if (!filename) {
     throw new Error('Invalid URL')
@@ -51,8 +56,20 @@ async function cachingFetchAndVerify (url, cid) {
   if (!fs.existsSync(cachedFilePath)) {
     console.info(`Cached file ${cachedFilePath} not found`)
     console.info(`Downloading ${url} to ${cacheDir}`)
+
+    const buf = await retry(async (attempt) => {
+      return await got(url).buffer()
+    }, {
+      retries,
+      onFailedAttempt: async (err) => {
+        console.error('Attempt', err.attemptNumber, 'failed. There are', err.retriesLeft, 'retries left', err)
+        console.info('Waiting for', retryDelay / 1000, 'seconds before retrying')
+        await delay(retryDelay)
+      }
+    })
+
     // download file
-    fs.writeFileSync(cachedFilePath, await got(url).buffer())
+    fs.writeFileSync(cachedFilePath, buf)
     console.info(`Downloaded ${url}`)
   } else {
     console.info(`Found ${cachedFilePath}`)
@@ -99,26 +116,31 @@ function unpack (installPath, stream) {
 }
 
 /**
- * @param {string} [version]
- * @param {string} [platform]
- * @param {string} [arch]
- * @param {string} [installPath]
+ * @param {object} [options]
+ * @param {string} [options.version]
+ * @param {string} [options.platform]
+ * @param {string} [options.arch]
+ * @param {string} [options.installPath]
+ * @param {number} [options.retries]
+ * @param {number} [options.retryDelay]
  */
-function cleanArguments (version, platform, arch, installPath) {
+function cleanArguments (options = {}) {
   const conf = packageConfigSync('go-libp2p', {
-    cwd: process.env.INIT_CWD || process.cwd(),
+    cwd: process.env.INIT_CWD ?? process.cwd(),
     defaults: {
-      version: version || latest,
+      version: options.version ?? latest,
       distUrl: 'https://%s.ipfs.w3s.link'
     }
   })
 
   return {
-    version: process.env.TARGET_VERSION || version || conf.version,
-    platform: process.env.TARGET_OS || platform || os.platform(),
-    arch: process.env.TARGET_ARCH || arch || goenv.GOARCH,
-    distUrl: process.env.GO_LIBP2P_DIST_URL || conf.distUrl,
-    installPath: installPath ? path.resolve(installPath) : process.cwd()
+    version: process.env.TARGET_VERSION ?? options.version ?? conf.version,
+    platform: process.env.TARGET_OS ?? options.platform ?? os.platform(),
+    arch: process.env.TARGET_ARCH ?? options.arch ?? goenv.GOARCH,
+    distUrl: process.env.GO_LIBP2P_DIST_URL ?? conf.distUrl,
+    installPath: options.installPath ? path.resolve(options.installPath) : process.cwd(),
+    retries: Number(process.env.RETRIES ?? options.retries ?? 10),
+    retryDelay: Number(process.env.RETRY_DELAY ?? options.retryDelay ?? 5000)
   }
 }
 
@@ -158,10 +180,15 @@ async function getDownloadURL (version, platform, arch, distUrl) {
  * @param {string} options.arch
  * @param {string} options.installPath
  * @param {string} options.distUrl
+ * @param {number} options.retries
+ * @param {number} options.retryDelay
  */
-async function downloadFile ({ version, platform, arch, installPath, distUrl }) {
+async function downloadFile ({ version, platform, arch, installPath, distUrl, retries, retryDelay }) {
   const { cid, url } = await getDownloadURL(version, platform, arch, distUrl)
-  const data = await cachingFetchAndVerify(url, cid)
+  const data = await cachingFetchAndVerify(url, cid, {
+    retries,
+    retryDelay
+  })
 
   await unpack(installPath, data)
   console.info(`Unpacked ${installPath}`)
@@ -236,14 +263,17 @@ async function link ({ depBin }) {
 }
 
 /**
- * @param {string} [version]
- * @param {string} [platform]
- * @param {string} [arch]
- * @param {string} [installPath]
+ * @param {object} [options]
+ * @param {string} [options.version]
+ * @param {string} [options.platform]
+ * @param {string} [options.arch]
+ * @param {string} [options.installPath]
+ * @param {number} [options.retries]
+ * @param {number} [options.retryDelay]
  * @returns {Promise<string>}
  */
-export async function download (version, platform, arch, installPath) {
-  const args = cleanArguments(version, platform, arch, installPath)
+export async function download (options = {}) {
+  const args = cleanArguments(options)
 
   return link({
     ...args,
