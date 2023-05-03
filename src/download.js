@@ -58,7 +58,7 @@ async function cachingFetchAndVerify (url, cid, options = {}) {
     console.info(`Downloading ${url} to ${cacheDir}`)
 
     const buf = await retry(async (attempt) => {
-      return await got(url).buffer()
+      return await got(url, { timeout: { request: 60000 }}).buffer()
     }, {
       retries,
       onFailedAttempt: async (err) => {
