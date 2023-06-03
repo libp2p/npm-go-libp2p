@@ -11,6 +11,8 @@
 
 - [Install](#install)
 - [Publishing new versions](#publishing-new-versions)
+  - [Prequisites](#prequisites)
+  - [Instructions](#instructions)
 - [License](#license)
 - [Contribution](#contribution)
 
@@ -34,20 +36,35 @@ libp2p version v0.7.0
 
 ## Publishing new versions
 
-0. Install go 1.20 or later
-1. Create a w3storage account
-2. Generate an API token and store it in `./scripts/.config.js`
+The makefile in this repo will build `go-libp2p-daemon` for every supported platform,
+archive the binaries and upload them to web3.storage.
+
+### Prequisites
+
+- Install go 1.20 or later
+- Create a w3storage account
+- Generate an API token and store it in `./scripts/.config.js`
     ```js
     export const API_TOKEN = '... token here ...'
-3. Run makefile
+    ```
+
+### Instructions
+
+1. Run makefile
     ```console
     $ make all
     ```
-4. Upload new versions
+2. Upload new versions
     ```console
-    $ node scripts/upload.js
+    $ make upload
     ```
-5. Open a PR with the `src/versions.json` changes
+3. Open a PR to this repo with changes made to `src/versions.json`
+
+If anything goes wrong:
+
+```console
+$ make clean
+```
 
 ## License
 
