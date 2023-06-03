@@ -68,6 +68,7 @@
     "test": "npm run test:node",
     "test:node": "aegir test -t node",
     "lint": "aegir lint",
+    "dep-check": "aegir dep-check -i pre-commit",
     "release": "aegir release",
     "build": "aegir build --bundle false"
   },
@@ -77,6 +78,7 @@
     "got": "^12.5.3",
     "gunzip-maybe": "^1.4.2",
     "ipfs-only-hash": "^4.0.0",
+    "multiformats": "^11.0.2",
     "p-retry": "^5.1.2",
     "pkg-conf": "^4.0.0",
     "tar-fs": "^2.1.0",

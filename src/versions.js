@@ -1,4 +1,3 @@
-
 /**
  * @typedef {object} Version
  * @property {string} darwin
