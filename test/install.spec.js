@@ -4,9 +4,9 @@ import fs from 'node:fs/promises'
 import * as url from 'node:url'
 import path from 'path'
 import { expect } from 'aegir/chai'
+// @ts-expect-error no types
 import cachedir from 'cachedir'
 import { execa } from 'execa'
-// @ts-expect-error no types
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 

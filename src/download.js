@@ -6,18 +6,18 @@
 
 /* eslint-disable no-console */
 
-// @ts-expect-error no types
 import cproc from 'node:child_process'
 import fs from 'node:fs'
-// @ts-expect-error no types
 import os from 'node:os'
 import path from 'node:path'
 import * as url from 'node:url'
 import util from 'node:util'
+// @ts-expect-error no types
 import cachedir from 'cachedir'
 import delay from 'delay'
 import got from 'got'
 import gunzip from 'gunzip-maybe'
+// @ts-expect-error no types
 import Hash from 'ipfs-only-hash'
 import { CID } from 'multiformats/cid'
 import retry from 'p-retry'
