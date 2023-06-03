@@ -11,3 +11,5 @@ bin/p2pd-*
 bin/p2pd.exe
 bin/go-libp2p-daemon
 .config.js
+*.tar.gz
+*.zip

@@ -45,6 +45,6 @@ win32:
 	zip p2pd-$(COMMIT)-$@-386.zip $(WORKDIR)/p2pd-win32-386.exe
 
 upload:
-  node scripts/upload.js
+	node ./scripts/upload.js
 
 .PHONY: clean

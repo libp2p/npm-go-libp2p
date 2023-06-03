@@ -34,6 +34,7 @@ libp2p version v0.7.0
 
 ## Publishing new versions
 
+0. Install go 1.20 or later
 1. Create a w3storage account
 2. Generate an API token and store it in `./scripts/.config.js`
     ```js
@@ -42,7 +43,10 @@ libp2p version v0.7.0
     ```console
     $ make all
     ```
-4. New versions of go-libp2p-daemon will be built and uploaded and `src/versions.json` will be updated
+4. Upload new versions
+    ```console
+    $ node scripts/upload.js
+    ```
 5. Open a PR with the `src/versions.json` changes
 
 ## License
