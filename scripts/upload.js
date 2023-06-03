@@ -22,7 +22,7 @@ const tarballs = [
 ]
 
 const output = {}
-/*
+
 // Pack files into a CAR and send to web3.storage
 const rootCid = await client.put(await getFilesFromPath(tarballs.map(tarball => join(__dirname, '..', tarball))), {
   onStoredChunk: (size) => {
@@ -35,10 +35,6 @@ const rootCid = await client.put(await getFilesFromPath(tarballs.map(tarball => 
 
 console.info('upload complete')
 console.info('root cid', rootCid)
-
-*/
-
-const rootCid = 'bafybeihugkqg34c34dfmk3uaojyzuhb64uvdcoa4t2beakvdbshp4kopme'
 
 // Fetch and verify files from web3.storage
 const res = await client.get(rootCid) // Promise<Web3Response | null>
