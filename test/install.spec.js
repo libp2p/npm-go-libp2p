@@ -1,12 +1,12 @@
 /* eslint-env mocha */
 
-import { expect } from 'aegir/chai'
 import fs from 'node:fs/promises'
+import * as url from 'node:url'
 import path from 'path'
-import { execa } from 'execa'
+import { expect } from 'aegir/chai'
 // @ts-expect-error no types
 import cachedir from 'cachedir'
-import * as url from 'node:url'
+import { execa } from 'execa'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 

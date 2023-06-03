@@ -6,26 +6,26 @@
 
 /* eslint-disable no-console */
 
-import * as goenv from './go-platform.js'
-import gunzip from 'gunzip-maybe'
-import path from 'node:path'
-import got from 'got'
-import tarFS from 'tar-fs'
-import unzip from 'unzip-stream'
-import { latest, versions } from './versions.js'
-import fs from 'node:fs'
-// @ts-expect-error no types
-import cachedir from 'cachedir'
-import { packageConfigSync } from 'pkg-conf'
 import cproc from 'node:child_process'
-// @ts-expect-error no types
-import Hash from 'ipfs-only-hash'
+import fs from 'node:fs'
 import os from 'node:os'
+import path from 'node:path'
 import * as url from 'node:url'
 import util from 'node:util'
+// @ts-expect-error no types
+import cachedir from 'cachedir'
+import delay from 'delay'
+import got from 'got'
+import gunzip from 'gunzip-maybe'
+// @ts-expect-error no types
+import Hash from 'ipfs-only-hash'
 import { CID } from 'multiformats/cid'
 import retry from 'p-retry'
-import delay from 'delay'
+import { packageConfigSync } from 'pkg-conf'
+import tarFS from 'tar-fs'
+import unzip from 'unzip-stream'
+import * as goenv from './go-platform.js'
+import { latest, versions } from './versions.js'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 const isWin = process.platform === 'win32'

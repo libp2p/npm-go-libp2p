@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 
-import { expect } from 'aegir/chai'
 import fs from 'node:fs/promises'
+import { expect } from 'aegir/chai'
 import { execa } from 'execa'
 import { download } from '../src/download.js'
 import { path } from '../src/index.js'

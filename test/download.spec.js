@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 
-import { expect } from 'aegir/chai'
 import fs from 'node:fs/promises'
+import { expect } from 'aegir/chai'
 import { download } from '../src/download.js'
 import { path as detectLocation } from '../src/index.js'
 import { clean } from './fixtures/clean.js'
