@@ -236,7 +236,7 @@ async function downloadFile ({ version, platform, arch, installPath, distUrl, re
  * @returns {Promise<string>}
  */
 async function findBin ({ installPath, platform, arch }) {
-  const binSuffix = platform === 'windows' ? '.exe' : ''
+  const binSuffix = platform === 'win32' ? '.exe' : ''
   const bins = [
     path.join(installPath, 'p2pd'),
     path.join(installPath, 'bin', `p2pd-${platform}${binSuffix}`),
