@@ -73,15 +73,18 @@
     "build": "aegir build --bundle false"
   },
   "dependencies": {
+    "@helia/unixfs": "^1.2.2",
+    "blockstore-core": "^4.2.0",
     "cachedir": "^2.3.0",
     "delay": "^6.0.0",
     "got": "^12.5.3",
     "gunzip-maybe": "^1.4.2",
-    "ipfs-only-hash": "^4.0.0",
+    "ipfs-unixfs-importer": "^15.1.5",
     "multiformats": "^11.0.2",
     "p-retry": "^5.1.2",
     "pkg-conf": "^4.0.0",
     "tar-fs": "^2.1.0",
+    "uint8arrays": "^4.0.3",
     "unzip-stream": "^0.3.0"
   },
   "devDependencies": {
@@ -91,7 +94,8 @@
     "@types/unzip-stream": "^0.3.1",
     "aegir": "^39.0.9",
     "execa": "^7.0.0",
-    "pre-commit": "^1.2.2"
+    "pre-commit": "^1.2.2",
+    "web3.storage": "^4.5.4"
   },
   "pre-commit": "restore-bin"
 }

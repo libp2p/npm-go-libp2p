@@ -10,6 +10,7 @@
 ## Table of contents <!-- omit in toc -->
 
 - [Install](#install)
+- [Publishing new versions](#publishing-new-versions)
 - [License](#license)
 - [Contribution](#contribution)
 
@@ -30,6 +31,19 @@ libp2p version v0.7.0
 > ./node_modules/.bin/libp2p
 libp2p version v0.7.0
 ```
+
+## Publishing new versions
+
+1. Create a w3storage account
+2. Generate an API token and store it in `./scripts/.config.js`
+    ```js
+    export const API_TOKEN = '... token here ...'
+3. Run makefile
+    ```console
+    $ make all
+    ```
+4. New versions of go-libp2p-daemon will be built and uploaded and `src/versions.json` will be updated
+5. Open a PR with the `src/versions.json` changes
 
 ## License
 

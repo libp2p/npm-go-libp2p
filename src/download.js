@@ -12,23 +12,29 @@ import os from 'node:os'
 import path from 'node:path'
 import * as url from 'node:url'
 import util from 'node:util'
+import { unixfs } from '@helia/unixfs'
+import { BlackHoleBlockstore } from 'blockstore-core/black-hole'
 // @ts-expect-error no types
 import cachedir from 'cachedir'
 import delay from 'delay'
 import got from 'got'
 import gunzip from 'gunzip-maybe'
-// @ts-expect-error no types
-import Hash from 'ipfs-only-hash'
+import { fixedSize } from 'ipfs-unixfs-importer/chunker'
+import { balanced } from 'ipfs-unixfs-importer/layout'
 import { CID } from 'multiformats/cid'
 import retry from 'p-retry'
 import { packageConfigSync } from 'pkg-conf'
 import tarFS from 'tar-fs'
+import { equals as uint8ArrayEquals } from 'uint8arrays/equals'
 import unzip from 'unzip-stream'
 import * as goenv from './go-platform.js'
-import { latest, versions } from './versions.js'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 const isWin = process.platform === 'win32'
+
+const { latest, versions } = JSON.parse(fs.readFileSync(path.join(__dirname, 'versions.json'), {
+  encoding: 'utf-8'
+}))
 
 /**
  * avoid expensive fetch if file is already in cache
@@ -75,16 +81,40 @@ async function cachingFetchAndVerify (url, cid, options = {}) {
     console.info(`Found ${cachedFilePath}`)
   }
 
-  console.info(`Verifying ${filename}`)
+  console.info(`Verifying ${filename} from ${cachedFilePath}`)
 
-  const data = fs.readFileSync(cachedFilePath)
-  const calculatedSha = await Hash.of(data)
-  if (calculatedSha !== cid) {
-    console.log(`Expected CID: ${cid}`)
-    console.log(`Actual   CID: ${calculatedSha}`)
-    throw new Error(`CID of ${cachedFilePath}' (${calculatedSha}) does not match expected value from ${cachedFilePath}`)
+  const ufs = unixfs({ blockstore: new BlackHoleBlockstore() })
+  let receivedCid
+
+  if (cid.startsWith('bafy')) {
+    console.info('Recreating new-style CID')
+    // new-style w3storage CID
+    receivedCid = await ufs.addByteStream(fs.createReadStream(cachedFilePath), {
+      cidVersion: 1,
+      rawLeaves: true,
+      chunker: fixedSize({ chunkSize: 1024 * 1024 }),
+      layout: balanced({ maxChildrenPerNode: 1024 })
+    })
+  } else {
+    console.info('Recreating old-style CID')
+    // old-style kubo CID
+    receivedCid = await ufs.addByteStream(fs.createReadStream(cachedFilePath), {
+      cidVersion: 0,
+      rawLeaves: false,
+      chunker: fixedSize({ chunkSize: 262144 }),
+      layout: balanced({ maxChildrenPerNode: 174 })
+    })
   }
-  console.log(`OK ${calculatedSha}`)
+
+  const downloadedCid = CID.parse(cid)
+
+  if (!uint8ArrayEquals(downloadedCid.multihash.bytes, receivedCid.multihash.bytes)) {
+    console.log(`Requested content with CID: ${downloadedCid}`)
+    console.log(`Received content with CID:  ${receivedCid}`)
+
+    throw new Error(`CID of ${cachedFilePath}' (${cid}) does not match expected value from ${cachedFilePath}`)
+  }
+  console.log(`OK ${receivedCid}`)
 
   return fs.createReadStream(cachedFilePath)
 }
@@ -161,10 +191,10 @@ async function getDownloadURL (version, platform, arch, distUrl) {
     throw new Error(`Invalid platform specified - "${platform}", must be one of 'darwin', 'linux' or 'win32'}`)
   }
 
-  const cid = versionData[platform]
+  const cid = versionData[`${platform}-${arch}`] ?? versionData[platform]
 
   if (cid == null) {
-    throw new Error(`No binary available for platform '${platform}'`)
+    throw new Error(`No binary available for platform '${platform}' and/or arch ${arch}`)
   }
 
   return {
@@ -193,25 +223,33 @@ async function downloadFile ({ version, platform, arch, installPath, distUrl, re
   await unpack(installPath, data)
   console.info(`Unpacked ${installPath}`)
 
-  return findBin({ installPath, platform })
+  return findBin({ installPath, platform, arch })
 }
 
-/** Different versions return the exe differently. Handle this here
+/**
+ * Different versions return the exe differently. Handle this here
  *
  * @param {object} options
  * @param {string} options.installPath
  * @param {string} options.platform
- * @returns string
+ * @param {string} options.arch
+ * @returns {Promise<string>}
  */
-async function findBin ({ installPath, platform }) {
+async function findBin ({ installPath, platform, arch }) {
   const binSuffix = platform === 'windows' ? '.exe' : ''
-  const rawBin = path.join(installPath, 'p2pd')
-  const platformScopedBin = path.join(installPath, 'bin', `p2pd-${platform}${binSuffix}`)
-  if (await fs.promises.stat(rawBin).then(() => true).catch(() => false)) {
-    return rawBin
+  const bins = [
+    path.join(installPath, 'p2pd'),
+    path.join(installPath, 'bin', `p2pd-${platform}${binSuffix}`),
+    path.join(installPath, 'bin', `p2pd-${platform}-${arch}${binSuffix}`)
+  ]
+
+  for (const bin of bins) {
+    if (await fs.promises.stat(bin).then(() => true).catch(() => false)) {
+      return bin
+    }
   }
 
-  return platformScopedBin
+  throw new Error(`Could not find bin, tried ${bins}`)
 }
 
 /**
