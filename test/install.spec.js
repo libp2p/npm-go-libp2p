@@ -11,7 +11,7 @@ import { execa } from 'execa'
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 /*
-  Test that correct go-ipfs is downloaded during npm install.
+  Test that correct go-libp2p is downloaded during npm install.
 */
 
 async function clean () {

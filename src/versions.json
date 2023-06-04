@@ -1,0 +1,39 @@
+{
+  "latest": "v0.5.0",
+  "versions": {
+    "v0.5.0": {
+      "darwin": "bafybeievsa472emtpzcl5yjykw2mnqq7xav2aisk4rxrokhhtda6s3puau",
+      "linux-386": "bafybeicbnoxi3lboombgqjxhjniilwclzc3vv52dmcmppian5dummflygq",
+      "linux-amd64": "bafybeibhzp5scss4rgo7cnxvse2fnoqso52wef3hmbtqfv6eyx7munrcc4",
+      "linux-arm64": "bafybeicaae3vrczyifdzi4kcad7isijujqgu4plupii3rbkluq77xf3hiu",
+      "win32-386": "bafybeihkrynwltb5mva5m33jxynww5ih7xzwh23xtq4qtk55zdc2gxgp7i",
+      "win32-amd64": "bafybeicpm2jp3qsx2uh4gibwz4vfbil3nuxddlsiz4kwc3e3ghkof3pbty",
+      "win32-arm64": "bafybeigkro23bzxeadltjk46zc47y3sgs5nlckwmf64pnrqvjs4oc5at3y"
+    },
+    "v0.4.1": {
+      "darwin": "QmRFbrfLm4DWDmZHgubAVqXshRaV5vSbzhM5D7kAmZrdug",
+      "linux": "QmSMiiCCmu4YGdDfJL8cpbEeDtUGUULnvHtTBCeio8zbe7",
+      "win32": "QmYrYKthxvoFZnLFP1hJX7BFTvQgoSip3mwNNuaKDZ3VTU"
+    },
+    "v0.4.0": {
+      "darwin": "QmXTAqBwpuAyYTsWD7gZ1MBq77cWmkeh1Lm8e286P47C7C",
+      "linux": "QmZwvFy5e3RrxD39DcXLGHfhsga8uMEU3JpKKVbHfkcCdv",
+      "win32": "QmdCyyCxLgAD3hNLAgYDRioKufPkyr5ggGnPokkW9FcfcZ"
+    },
+    "v0.3.1": {
+      "darwin": "QmettTVLnaLaVF9DzKd2yik8fnGZ1rbK7PuHBF8eqB2Yft",
+      "linux": "QmQdVisPPnESnvQYmify1AEULwG5puXQq1c6yQyD4AVCJd",
+      "win32": "QmesyDksxpWCMHsKHM371bwhh3J7kmg9HrdqYg7WfH6TS2"
+    },
+    "v0.1.0": {
+      "darwin": "QmajN9chpFzG4msziqEKRbF32VW87a5SeKRKXiao6qokVT",
+      "linux": "QmaX7i8cFkVoN8FmgLhNaxfapkQrztpuChdMRgcYDZQmq1",
+      "win32": "Qme6SrCD6fm8AFmH9kA5BYwyz3fBq2QjrsxePen5Xoy9R1"
+    },
+    "v6.0.30": {
+      "darwin": "QmSS6iQ3JNJ96g73tFARAcdYaMmAsvjX1RVuMPqJThTs7D",
+      "linux": "Qmdu8WCFUW43u8mHpbj2jV2ZSB1mP7JcjnJJcJ1oF6iMwW",
+      "win32": "QmP5P6AYQjbG26j5qrzbohSqAW3AP2Mvsuun3fS99hC1x6"
+    }
+  }
+}
