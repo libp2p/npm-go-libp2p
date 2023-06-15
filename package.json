@@ -73,13 +73,13 @@
     "build": "aegir build --bundle false"
   },
   "dependencies": {
-    "@helia/unixfs": "^1.2.2",
     "blockstore-core": "^4.2.0",
     "cachedir": "^2.3.0",
     "delay": "^6.0.0",
     "got": "^12.5.3",
     "gunzip-maybe": "^1.4.2",
     "ipfs-unixfs-importer": "^15.1.5",
+    "it-last": "^3.0.2",
     "multiformats": "^11.0.2",
     "p-retry": "^5.1.2",
     "pkg-conf": "^4.0.0",
