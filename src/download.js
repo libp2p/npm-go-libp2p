@@ -12,15 +12,16 @@ import os from 'node:os'
 import path from 'node:path'
 import * as url from 'node:url'
 import util from 'node:util'
-import { unixfs } from '@helia/unixfs'
 import { BlackHoleBlockstore } from 'blockstore-core/black-hole'
 // @ts-expect-error no types
 import cachedir from 'cachedir'
 import delay from 'delay'
 import got from 'got'
 import gunzip from 'gunzip-maybe'
+import { importer } from 'ipfs-unixfs-importer'
 import { fixedSize } from 'ipfs-unixfs-importer/chunker'
 import { balanced } from 'ipfs-unixfs-importer/layout'
+import last from 'it-last'
 import { CID } from 'multiformats/cid'
 import retry from 'p-retry'
 import { packageConfigSync } from 'pkg-conf'
@@ -83,29 +84,38 @@ async function cachingFetchAndVerify (url, cid, options = {}) {
 
   console.info(`Verifying ${filename} from ${cachedFilePath}`)
 
-  const ufs = unixfs({ blockstore: new BlackHoleBlockstore() })
-  let receivedCid
+  const blockstore = new BlackHoleBlockstore()
+  const input = fs.createReadStream(cachedFilePath)
+  let result
 
   if (cid.startsWith('bafy')) {
     console.info('Recreating new-style CID')
     // new-style w3storage CID
-    receivedCid = await ufs.addByteStream(fs.createReadStream(cachedFilePath), {
+    result = await last(importer([{
+      content: input
+    }], blockstore, {
       cidVersion: 1,
       rawLeaves: true,
       chunker: fixedSize({ chunkSize: 1024 * 1024 }),
       layout: balanced({ maxChildrenPerNode: 1024 })
-    })
+    }))
   } else {
-    console.info('Recreating old-style CID')
     // old-style kubo CID
-    receivedCid = await ufs.addByteStream(fs.createReadStream(cachedFilePath), {
+    result = await last(importer([{
+      content: input
+    }], blockstore, {
       cidVersion: 0,
       rawLeaves: false,
       chunker: fixedSize({ chunkSize: 262144 }),
       layout: balanced({ maxChildrenPerNode: 174 })
-    })
+    }))
   }
 
+  if (result == null) {
+    throw new Error('Import failed')
+  }
+
+  const receivedCid = result.cid
   const downloadedCid = CID.parse(cid)
 
   if (!uint8ArrayEquals(downloadedCid.multihash.bytes, receivedCid.multihash.bytes)) {
