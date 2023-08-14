@@ -13,7 +13,6 @@ import path from 'node:path'
 import * as url from 'node:url'
 import util from 'node:util'
 import { BlackHoleBlockstore } from 'blockstore-core/black-hole'
-// @ts-expect-error no types
 import cachedir from 'cachedir'
 import delay from 'delay'
 import got from 'got'
