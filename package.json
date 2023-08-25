@@ -81,7 +81,7 @@
     "ipfs-unixfs-importer": "^15.1.5",
     "it-last": "^3.0.2",
     "multiformats": "^11.0.2",
-    "p-retry": "^5.1.2",
+    "p-retry": "^6.0.0",
     "pkg-conf": "^4.0.0",
     "tar-fs": "^2.1.0",
     "uint8arrays": "^4.0.3",
