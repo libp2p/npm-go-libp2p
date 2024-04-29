@@ -74,28 +74,27 @@
   },
   "dependencies": {
     "blockstore-core": "^4.2.0",
+    "browser-readablestream-to-it": "^2.0.7",
     "cachedir": "^2.3.0",
     "delay": "^6.0.0",
-    "got": "^12.5.3",
     "gunzip-maybe": "^1.4.2",
     "ipfs-unixfs-importer": "^15.1.5",
     "it-last": "^3.0.2",
-    "multiformats": "^11.0.2",
-    "p-retry": "^5.1.2",
-    "pkg-conf": "^4.0.0",
-    "tar-fs": "^2.1.0",
-    "uint8arrays": "^4.0.3",
+    "it-to-buffer": "^4.0.7",
+    "multiformats": "^13.1.0",
+    "p-retry": "^6.2.0",
+    "package-config": "^5.0.0",
+    "tar-fs": "^3.0.6",
+    "uint8arrays": "^5.0.3",
     "unzip-stream": "^0.3.0"
   },
   "devDependencies": {
-    "@types/got": "^9.6.12",
     "@types/gunzip-maybe": "^1.4.0",
     "@types/tar-fs": "^2.0.1",
     "@types/unzip-stream": "^0.3.1",
-    "aegir": "^39.0.9",
-    "execa": "^7.0.0",
-    "pre-commit": "^1.2.2",
-    "web3.storage": "^4.5.4"
+    "aegir": "^42.2.9",
+    "execa": "^8.0.1",
+    "pre-commit": "^1.2.2"
   },
   "pre-commit": "restore-bin"
 }

@@ -1,6 +1,8 @@
 /* eslint-env mocha */
 
 import fs from 'node:fs/promises'
+import os from 'node:os'
+import path from 'node:path'
 import { expect } from 'aegir/chai'
 import { download } from '../src/download.js'
 import { path as detectLocation } from '../src/index.js'
@@ -8,7 +10,12 @@ import { clean } from './fixtures/clean.js'
 
 describe('download', () => {
   beforeEach(async () => {
+    process.env.NPM_GO_LIBP2P_CACHE = path.join(os.tmpdir(), `npm-go-libp2p-test-cache-${Date.now()}`)
     await clean()
+  })
+
+  afterEach(async () => {
+    delete process.env.NPM_GO_LIBP2P_CACHE
   })
 
   it('downloads libp2p (current version and platform)', async () => {
@@ -27,7 +34,7 @@ describe('download', () => {
   it('returns an error when dist url is 404', async () => {
     process.env.GO_LIBP2P_DIST_URL = 'https://dist.ipfs.io/notfound'
 
-    await expect(download({ version: 'v0.3.1', retries: 0 })).to.eventually.be.rejected
+    await expect(download({ version: 'v0.4.0', retries: 0 })).to.eventually.be.rejected
       .with.property('message').that.matches(/404/)
 
     delete process.env.GO_LIBP2P_DIST_URL
