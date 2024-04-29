@@ -12,22 +12,19 @@ import os from 'node:os'
 import path from 'node:path'
 import * as url from 'node:url'
 import util from 'node:util'
-import { BlackHoleBlockstore } from 'blockstore-core/black-hole'
+import browserReadableStreamToIt from 'browser-readablestream-to-it'
 import cachedir from 'cachedir'
 import delay from 'delay'
-import got from 'got'
 import gunzip from 'gunzip-maybe'
-import { importer } from 'ipfs-unixfs-importer'
-import { fixedSize } from 'ipfs-unixfs-importer/chunker'
-import { balanced } from 'ipfs-unixfs-importer/layout'
-import last from 'it-last'
+import toBuffer from 'it-to-buffer'
 import { CID } from 'multiformats/cid'
 import retry from 'p-retry'
-import { packageConfigSync } from 'pkg-conf'
+import { packageConfigSync } from 'package-config'
 import tarFS from 'tar-fs'
 import { equals as uint8ArrayEquals } from 'uint8arrays/equals'
 import unzip from 'unzip-stream'
 import * as goenv from './go-platform.js'
+import { hashFile } from './hash-file.js'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 const isWin = process.platform === 'win32'
@@ -35,6 +32,8 @@ const isWin = process.platform === 'win32'
 const { latest, versions } = JSON.parse(fs.readFileSync(path.join(__dirname, 'versions.json'), {
   encoding: 'utf-8'
 }))
+
+const DOWNLOAD_TIMEOUT_MS = 60000
 
 /**
  * avoid expensive fetch if file is already in cache
@@ -63,8 +62,34 @@ async function cachingFetchAndVerify (url, cid, options = {}) {
     console.info(`Cached file ${cachedFilePath} not found`)
     console.info(`Downloading ${url} to ${cacheDir}`)
 
-    const buf = await retry(async (attempt) => {
-      return await got(url).buffer()
+    const buf = await retry(async () => {
+      const signal = AbortSignal.timeout(DOWNLOAD_TIMEOUT_MS)
+
+      try {
+        const res = await fetch(url, {
+          signal
+        })
+
+        console.info(`${url} ${res.status} ${res.statusText}`)
+
+        if (!res.ok) {
+          throw new Error(`${res.status}: ${res.statusText}`)
+        }
+
+        const body = res.body
+
+        if (body == null) {
+          throw new Error('Response had no body')
+        }
+
+        return await toBuffer(browserReadableStreamToIt(body))
+      } catch (err) {
+        if (signal.aborted) {
+          console.error(`Download timed out after ${DOWNLOAD_TIMEOUT_MS}ms`)
+        }
+
+        throw err
+      }
     }, {
       retries,
       onFailedAttempt: async (err) => {
@@ -82,39 +107,7 @@ async function cachingFetchAndVerify (url, cid, options = {}) {
   }
 
   console.info(`Verifying ${filename} from ${cachedFilePath}`)
-
-  const blockstore = new BlackHoleBlockstore()
-  const input = fs.createReadStream(cachedFilePath)
-  let result
-
-  if (cid.startsWith('bafy')) {
-    console.info('Recreating new-style CID')
-    // new-style w3storage CID
-    result = await last(importer([{
-      content: input
-    }], blockstore, {
-      cidVersion: 1,
-      rawLeaves: true,
-      chunker: fixedSize({ chunkSize: 1024 * 1024 }),
-      layout: balanced({ maxChildrenPerNode: 1024 })
-    }))
-  } else {
-    // old-style kubo CID
-    result = await last(importer([{
-      content: input
-    }], blockstore, {
-      cidVersion: 0,
-      rawLeaves: false,
-      chunker: fixedSize({ chunkSize: 262144 }),
-      layout: balanced({ maxChildrenPerNode: 174 })
-    }))
-  }
-
-  if (result == null) {
-    throw new Error('Import failed')
-  }
-
-  const receivedCid = result.cid
+  const receivedCid = await hashFile(cachedFilePath)
   const downloadedCid = CID.parse(cid)
 
   if (!uint8ArrayEquals(downloadedCid.multihash.bytes, receivedCid.multihash.bytes)) {
@@ -168,7 +161,7 @@ function cleanArguments (options = {}) {
     cwd: process.env.INIT_CWD ?? process.cwd(),
     defaults: {
       version: options.version ?? latest,
-      distUrl: 'https://%s.ipfs.w3s.link'
+      distUrl: 'https://github.com/libp2p/go-libp2p-daemon/releases/download/%s/p2pd-%s-%s.%s'
     }
   })
 
@@ -206,8 +199,20 @@ async function getDownloadURL (version, platform, arch, distUrl) {
     throw new Error(`No binary available for platform '${platform}' and/or arch ${arch}`)
   }
 
+  let downloadTarget = `${platform}-${arch}`
+
+  if (platform === 'darwin') {
+    downloadTarget = 'darwin'
+  }
+
+  let extension = 'tar.gz'
+
+  if (platform === 'win32') {
+    extension = 'zip'
+  }
+
   return {
-    url: util.format(distUrl, CID.parse(cid).toV1().toString()),
+    url: util.format(distUrl, version, version, downloadTarget, extension),
     cid
   }
 }

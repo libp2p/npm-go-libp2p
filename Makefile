@@ -1,8 +1,8 @@
-COMMIT?=v0.5.0
+COMMIT?=v0.6.0
 TARGETS=linux darwin win32
 WORKDIR=bin
 
-all: clean darwin linux win32
+all: clean darwin linux win32 versions
 
 clean:
 	rm -rf *.tar.gz *.zip bin/p2pd-* bin/go-libp2p-daemon
@@ -44,7 +44,7 @@ win32:
 	zip p2pd-$(COMMIT)-$@-arm64.zip $(WORKDIR)/p2pd-win32-arm64.exe && \
 	zip p2pd-$(COMMIT)-$@-386.zip $(WORKDIR)/p2pd-win32-386.exe
 
-upload:
-	node ./scripts/upload.js
+versions:
+	node ./scripts/update-versions.js
 
 .PHONY: clean

@@ -1,39 +1,41 @@
 {
-  "latest": "v0.5.0",
+  "latest": "v0.6.0",
   "versions": {
+    "v0.6.0": {
+      "darwin": "bafybeieplo3tqhpdfptzvflxbdlvw32vivyq7qkcukytby2iwjuhxwl3dy",
+      "linux-386": "bafybeibexjcu5cznafpkzdhqy4kr4yvuzta4fbl23pvpafyghpenpljyye",
+      "linux-amd64": "bafybeicvwncyy4djmluzpijhcytkzucwq6u3fiwfj67h3s35zgiuqwxouy",
+      "linux-arm64": "bafybeihisjdyw27jvomzt5lh4up74y6us2ty427re746mfm56ktl4xe25i",
+      "win32-386": "bafybeidqsj2v2vs6cy2rpdvgvppgiade75ixk5xhrskfk633sz7p2e5hu4",
+      "win32-amd64": "bafybeigpicf45xmla45jrhv6h7y7u5wm6ceumsv4uh6a24yrdsdjm5j3w4",
+      "win32-arm64": "bafybeiagcakk7xmp4igcird6wltezi5cmgg7hy24zmw4gvsbhrvbpqqfbq"
+    },
     "v0.5.0": {
-      "darwin": "bafybeievsa472emtpzcl5yjykw2mnqq7xav2aisk4rxrokhhtda6s3puau",
-      "linux-386": "bafybeicbnoxi3lboombgqjxhjniilwclzc3vv52dmcmppian5dummflygq",
-      "linux-amd64": "bafybeibhzp5scss4rgo7cnxvse2fnoqso52wef3hmbtqfv6eyx7munrcc4",
-      "linux-arm64": "bafybeicaae3vrczyifdzi4kcad7isijujqgu4plupii3rbkluq77xf3hiu",
-      "win32-386": "bafybeihkrynwltb5mva5m33jxynww5ih7xzwh23xtq4qtk55zdc2gxgp7i",
-      "win32-amd64": "bafybeicpm2jp3qsx2uh4gibwz4vfbil3nuxddlsiz4kwc3e3ghkof3pbty",
-      "win32-arm64": "bafybeigkro23bzxeadltjk46zc47y3sgs5nlckwmf64pnrqvjs4oc5at3y"
+      "darwin": "bafybeifcyp5oxna7futy4xsmun46s7fgwdobchflvfwet7m5ygzsj4leem",
+      "linux-386": "bafybeihwf4uhtb4lqlap76weon7dffsnwzjrgfcru6chmxe3wa72fl3rkq",
+      "linux-amd64": "bafybeiarqwbdey3qsv6xk7i6pidgjyilfiootl5ue6vchniirtnlealu6i",
+      "linux-arm64": "bafybeidav3iude4rttb3pd2zolzuqudc3lqrjjsoyfpmkyzz4y44mkqaxu",
+      "win32-386": "bafybeibiktl5cab6vlirnrcsbt474vo3yg7i4vexagdjtwzs76kh6oyq3e",
+      "win32-amd64": "bafybeifs6xvbdczsacwprg6qsdfihmyso4ghciwwvilrefdvf3otyksfrq",
+      "win32-arm64": "bafybeihjp3byllb5eqjettg5kdiagvzm5jdhfi5qa26b33cbbrdrw337nm"
     },
     "v0.4.1": {
-      "darwin": "QmRFbrfLm4DWDmZHgubAVqXshRaV5vSbzhM5D7kAmZrdug",
-      "linux": "QmSMiiCCmu4YGdDfJL8cpbEeDtUGUULnvHtTBCeio8zbe7",
-      "win32": "QmYrYKthxvoFZnLFP1hJX7BFTvQgoSip3mwNNuaKDZ3VTU"
+      "darwin": "bafybeie3zgxb4bgoucchwwkjuvq25ioulns4dqwkwtnz3mzqkbszdytjnm",
+      "linux-386": "bafybeiam3cqcjm44rongvpgouqttvvygrs3jq4phqadwyhx4l5updapc3e",
+      "linux-amd64": "bafybeibyhq5qvi2x24zwztsghh63c3xwi3vtpzy5gbo6mxfa4353ofwrqm",
+      "linux-arm64": "bafybeidik6zb4xpsyuwzohmz252abi54fodfgirwbkvoshv2i4zvi6pzma",
+      "win32-386": "bafybeibbzbt2ioxzlp66ebkluyk5ekxqxuwwuci4o5cswwjw3x4etujeau",
+      "win32-amd64": "bafybeidtqdbx34wsfkyvszdjrl4fzayhesuzu4vn67mghqbi7yonlqzsuq",
+      "win32-arm64": "bafybeiajwj7ulvyjpw535fxtjhkrdadvjk2cjkwrrkrxjyd6l5qbmcfj64"
     },
     "v0.4.0": {
-      "darwin": "QmXTAqBwpuAyYTsWD7gZ1MBq77cWmkeh1Lm8e286P47C7C",
-      "linux": "QmZwvFy5e3RrxD39DcXLGHfhsga8uMEU3JpKKVbHfkcCdv",
-      "win32": "QmdCyyCxLgAD3hNLAgYDRioKufPkyr5ggGnPokkW9FcfcZ"
-    },
-    "v0.3.1": {
-      "darwin": "QmettTVLnaLaVF9DzKd2yik8fnGZ1rbK7PuHBF8eqB2Yft",
-      "linux": "QmQdVisPPnESnvQYmify1AEULwG5puXQq1c6yQyD4AVCJd",
-      "win32": "QmesyDksxpWCMHsKHM371bwhh3J7kmg9HrdqYg7WfH6TS2"
-    },
-    "v0.1.0": {
-      "darwin": "QmajN9chpFzG4msziqEKRbF32VW87a5SeKRKXiao6qokVT",
-      "linux": "QmaX7i8cFkVoN8FmgLhNaxfapkQrztpuChdMRgcYDZQmq1",
-      "win32": "Qme6SrCD6fm8AFmH9kA5BYwyz3fBq2QjrsxePen5Xoy9R1"
-    },
-    "v6.0.30": {
-      "darwin": "QmSS6iQ3JNJ96g73tFARAcdYaMmAsvjX1RVuMPqJThTs7D",
-      "linux": "Qmdu8WCFUW43u8mHpbj2jV2ZSB1mP7JcjnJJcJ1oF6iMwW",
-      "win32": "QmP5P6AYQjbG26j5qrzbohSqAW3AP2Mvsuun3fS99hC1x6"
+      "darwin": "bafybeiafw7yn3c2uqu4wotihi6q7n2ycxt6c37pj2jcflbfdwpijmlgb2m",
+      "linux-386": "bafybeibsssm27rgbop3eriigeeqhxikilr65xygqll27sgiaaiz3jinaa4",
+      "linux-amd64": "bafybeicasjgbsjwflr23obayqg2rmt5m26j7jggy4slx26mafagsyhxv6a",
+      "linux-arm64": "bafybeiasanseziia3u5tp75zyqbtz3rxzwhvkwtsdwm6o7vhu2j77dy52m",
+      "win32-386": "bafybeia6e7b64orubdl23m5mqlnllemyk65ncoc3xqm3jhoky6acnpz3jm",
+      "win32-amd64": "bafybeidf2gpwbe6uss7eotncqbctzxlnj4rdplyjh5ljbcjwmp2nuvxgxa",
+      "win32-arm64": "bafybeid6agdkcb2k7hpm2x6v3ndxrshh7qogr4c2tvn2mit7rvnwy6sopm"
     }
   }
 }

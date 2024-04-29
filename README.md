@@ -54,10 +54,7 @@ archive the binaries and upload them to web3.storage.
     ```console
     $ make all
     ```
-2. Upload new versions
-    ```console
-    $ make upload
-    ```
+2. Upload new versions to the GitHub release page
 3. Open a PR to this repo with changes made to `src/versions.json`
 
 If anything goes wrong:
