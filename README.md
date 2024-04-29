@@ -36,13 +36,13 @@ libp2p version v0.7.0
 
 ## Publishing new versions
 
-The makefile in this repo will build `go-libp2p-daemon` for every supported platform, archive the binaries and update the versions.json file.
+The makefile in this repo will build `go-libp2p-daemon` for every supported platform, compress the binaries and update `src/versions.json`.
 
-The zipped/gzipped binaries must be added to the relevant `go-libp2p-daemon` release page on GitHub.
+The compressed binaries must be added to the relevant `go-libp2p-daemon` [release page](https://github.com/libp2p/go-libp2p-daemon/releases) on GitHub.
 
 ### Prequisites
 
-- Install go 1.22 or later
+- Install a version of go that's capable of building the target `go-libp2p-daemon` version.
 
 ### Instructions
 
