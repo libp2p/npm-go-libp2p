@@ -1,6 +1,15 @@
 {
-  "latest": "v0.6.0",
+  "latest": "v0.6.1",
   "versions": {
+    "v0.6.1": {
+      "darwin": "bafybeidivrf3tx6kosfvetoch3rlodfaiuugnk3bkhgwtphgga2sz6b74q",
+      "linux-386": "bafybeihmn6is6l7npw3le7mzyd63zxwkz5absk3k5hcrm2j3jt5yrbgi6y",
+      "linux-amd64": "bafybeifbrtxu7ez7xvobpp67lbxrrgjpvzjxmq7jyz76pecewyfaetqra4",
+      "linux-arm64": "bafybeifpvd2mumtvb6iqcfs22psbtnax75uwq3lyhfdar3kndo3yz7g7tq",
+      "win32-386": "bafybeibidsujejkkkplmdkvrw7qwsyvpz4idep2gwdhov4ttlzu72hcmmy",
+      "win32-amd64": "bafybeiabupok4gttrflrtuyfi2nmewaxs5lioccejqaqqmxakrydzbqdle",
+      "win32-arm64": "bafybeibe3c6rwk65d7yft5opwdnd7zutaptmepkr3cnz3kgdu76y5zedam"
+    },
     "v0.6.0": {
       "darwin": "bafybeieplo3tqhpdfptzvflxbdlvw32vivyq7qkcukytby2iwjuhxwl3dy",
       "linux-386": "bafybeibexjcu5cznafpkzdhqy4kr4yvuzta4fbl23pvpafyghpenpljyye",

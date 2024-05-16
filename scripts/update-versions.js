@@ -2,13 +2,13 @@
 import fs from 'node:fs'
 import { join, resolve } from 'node:path'
 import * as url from 'node:url'
-import { hashFile } from '../src/hash-file.js'
 import { ARCHITECTURES } from '../src/arches.js'
+import { hashFile } from '../src/hash-file.js'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 const versionsPath = join(__dirname, '..', 'src', 'versions.json')
 
-const version =  fs.readFileSync(join(__dirname, '..', 'Makefile'), {
+const version = fs.readFileSync(join(__dirname, '..', 'Makefile'), {
   encoding: 'utf8'
 })
   .split('\n')

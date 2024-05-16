@@ -1,8 +1,8 @@
-COMMIT?=v0.6.0
+COMMIT?=v0.6.1
 TARGETS=linux darwin win32
 WORKDIR=bin
 
-all: clean darwin linux win32 versions
+all: clean clone darwin linux win32 versions
 
 clean:
 	rm -rf *.tar.gz *.zip bin/p2pd-* bin/go-libp2p-daemon
@@ -13,14 +13,14 @@ $(WORKDIR)/go-libp2p-daemon:
 clone: $(WORKDIR)/go-libp2p-daemon
 	git clone https://github.com/libp2p/go-libp2p-daemon.git bin/go-libp2p-daemon; cd $(WORKDIR)/go-libp2p-daemon && git checkout $(COMMIT)
 
-darwin: clone
+darwin:
 	cd $(WORKDIR)/go-libp2p-daemon/p2pd && \
 	GOOS=$@ GOARCH=amd64 go build -o p2pd-$@-amd64 && \
 	GOOS=$@ GOARCH=arm64 go build -o p2pd-$@-arm64 && \
 	lipo -create -output p2pd-$@ p2pd-$@-amd64 p2pd-$@-arm64 && \
 	mv p2pd-* ../../ && \
 	cd ../../../ && \
-	tar -czf p2pd-$(COMMIT)-$@.tar.gz $(WORKDIR)/p2pd-$@
+	node scripts/archive.js p2pd-$(COMMIT)-$@.tar.gz $(WORKDIR)/p2pd-$@
 
 linux: clone
 	cd $(WORKDIR)/go-libp2p-daemon/p2pd && \
@@ -29,9 +29,9 @@ linux: clone
 	GOARCH=386 GOOS=$@ go build -o p2pd-$@-386 && \
 	mv p2pd-* ../../ && \
 	cd ../../../ && \
-	tar -czf p2pd-$(COMMIT)-$@-amd64.tar.gz $(WORKDIR)/p2pd-linux-amd64 && \
-	tar -czf p2pd-$(COMMIT)-$@-arm64.tar.gz $(WORKDIR)/p2pd-linux-arm64 && \
-	tar -czf p2pd-$(COMMIT)-$@-386.tar.gz $(WORKDIR)/p2pd-linux-386
+	node scripts/archive.js p2pd-$(COMMIT)-$@-amd64.tar.gz $(WORKDIR)/p2pd-linux-amd64 && \
+	node scripts/archive.js p2pd-$(COMMIT)-$@-arm64.tar.gz $(WORKDIR)/p2pd-linux-arm64 && \
+	node scripts/archive.js p2pd-$(COMMIT)-$@-386.tar.gz $(WORKDIR)/p2pd-linux-386
 
 win32:
 	cd $(WORKDIR)/go-libp2p-daemon/p2pd && \
