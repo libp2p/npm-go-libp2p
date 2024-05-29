@@ -1,4 +1,4 @@
-COMMIT?=v0.6.1
+COMMIT?=v0.8.0
 TARGETS=linux darwin win32
 WORKDIR=bin
 
