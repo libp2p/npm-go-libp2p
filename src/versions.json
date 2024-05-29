@@ -1,32 +1,14 @@
 {
-  "latest": "v0.6.1",
+  "latest": "v0.8.0",
   "versions": {
-    "v0.6.1": {
-      "darwin": "bafybeidivrf3tx6kosfvetoch3rlodfaiuugnk3bkhgwtphgga2sz6b74q",
-      "linux-386": "bafybeihmn6is6l7npw3le7mzyd63zxwkz5absk3k5hcrm2j3jt5yrbgi6y",
-      "linux-amd64": "bafybeifbrtxu7ez7xvobpp67lbxrrgjpvzjxmq7jyz76pecewyfaetqra4",
-      "linux-arm64": "bafybeifpvd2mumtvb6iqcfs22psbtnax75uwq3lyhfdar3kndo3yz7g7tq",
-      "win32-386": "bafybeibidsujejkkkplmdkvrw7qwsyvpz4idep2gwdhov4ttlzu72hcmmy",
-      "win32-amd64": "bafybeiabupok4gttrflrtuyfi2nmewaxs5lioccejqaqqmxakrydzbqdle",
-      "win32-arm64": "bafybeibe3c6rwk65d7yft5opwdnd7zutaptmepkr3cnz3kgdu76y5zedam"
-    },
-    "v0.6.0": {
-      "darwin": "bafybeieplo3tqhpdfptzvflxbdlvw32vivyq7qkcukytby2iwjuhxwl3dy",
-      "linux-386": "bafybeibexjcu5cznafpkzdhqy4kr4yvuzta4fbl23pvpafyghpenpljyye",
-      "linux-amd64": "bafybeicvwncyy4djmluzpijhcytkzucwq6u3fiwfj67h3s35zgiuqwxouy",
-      "linux-arm64": "bafybeihisjdyw27jvomzt5lh4up74y6us2ty427re746mfm56ktl4xe25i",
-      "win32-386": "bafybeidqsj2v2vs6cy2rpdvgvppgiade75ixk5xhrskfk633sz7p2e5hu4",
-      "win32-amd64": "bafybeigpicf45xmla45jrhv6h7y7u5wm6ceumsv4uh6a24yrdsdjm5j3w4",
-      "win32-arm64": "bafybeiagcakk7xmp4igcird6wltezi5cmgg7hy24zmw4gvsbhrvbpqqfbq"
-    },
-    "v0.5.0": {
-      "darwin": "bafybeifcyp5oxna7futy4xsmun46s7fgwdobchflvfwet7m5ygzsj4leem",
-      "linux-386": "bafybeihwf4uhtb4lqlap76weon7dffsnwzjrgfcru6chmxe3wa72fl3rkq",
-      "linux-amd64": "bafybeiarqwbdey3qsv6xk7i6pidgjyilfiootl5ue6vchniirtnlealu6i",
-      "linux-arm64": "bafybeidav3iude4rttb3pd2zolzuqudc3lqrjjsoyfpmkyzz4y44mkqaxu",
-      "win32-386": "bafybeibiktl5cab6vlirnrcsbt474vo3yg7i4vexagdjtwzs76kh6oyq3e",
-      "win32-amd64": "bafybeifs6xvbdczsacwprg6qsdfihmyso4ghciwwvilrefdvf3otyksfrq",
-      "win32-arm64": "bafybeihjp3byllb5eqjettg5kdiagvzm5jdhfi5qa26b33cbbrdrw337nm"
+    "v0.4.0": {
+      "darwin": "bafybeiafw7yn3c2uqu4wotihi6q7n2ycxt6c37pj2jcflbfdwpijmlgb2m",
+      "linux-386": "bafybeibsssm27rgbop3eriigeeqhxikilr65xygqll27sgiaaiz3jinaa4",
+      "linux-amd64": "bafybeicasjgbsjwflr23obayqg2rmt5m26j7jggy4slx26mafagsyhxv6a",
+      "linux-arm64": "bafybeiasanseziia3u5tp75zyqbtz3rxzwhvkwtsdwm6o7vhu2j77dy52m",
+      "win32-386": "bafybeia6e7b64orubdl23m5mqlnllemyk65ncoc3xqm3jhoky6acnpz3jm",
+      "win32-amd64": "bafybeidf2gpwbe6uss7eotncqbctzxlnj4rdplyjh5ljbcjwmp2nuvxgxa",
+      "win32-arm64": "bafybeid6agdkcb2k7hpm2x6v3ndxrshh7qogr4c2tvn2mit7rvnwy6sopm"
     },
     "v0.4.1": {
       "darwin": "bafybeie3zgxb4bgoucchwwkjuvq25ioulns4dqwkwtnz3mzqkbszdytjnm",
@@ -37,14 +19,59 @@
       "win32-amd64": "bafybeidtqdbx34wsfkyvszdjrl4fzayhesuzu4vn67mghqbi7yonlqzsuq",
       "win32-arm64": "bafybeiajwj7ulvyjpw535fxtjhkrdadvjk2cjkwrrkrxjyd6l5qbmcfj64"
     },
-    "v0.4.0": {
-      "darwin": "bafybeiafw7yn3c2uqu4wotihi6q7n2ycxt6c37pj2jcflbfdwpijmlgb2m",
-      "linux-386": "bafybeibsssm27rgbop3eriigeeqhxikilr65xygqll27sgiaaiz3jinaa4",
-      "linux-amd64": "bafybeicasjgbsjwflr23obayqg2rmt5m26j7jggy4slx26mafagsyhxv6a",
-      "linux-arm64": "bafybeiasanseziia3u5tp75zyqbtz3rxzwhvkwtsdwm6o7vhu2j77dy52m",
-      "win32-386": "bafybeia6e7b64orubdl23m5mqlnllemyk65ncoc3xqm3jhoky6acnpz3jm",
-      "win32-amd64": "bafybeidf2gpwbe6uss7eotncqbctzxlnj4rdplyjh5ljbcjwmp2nuvxgxa",
-      "win32-arm64": "bafybeid6agdkcb2k7hpm2x6v3ndxrshh7qogr4c2tvn2mit7rvnwy6sopm"
+    "v0.5.0": {
+      "darwin": "bafybeifcyp5oxna7futy4xsmun46s7fgwdobchflvfwet7m5ygzsj4leem",
+      "linux-386": "bafybeihwf4uhtb4lqlap76weon7dffsnwzjrgfcru6chmxe3wa72fl3rkq",
+      "linux-amd64": "bafybeiarqwbdey3qsv6xk7i6pidgjyilfiootl5ue6vchniirtnlealu6i",
+      "linux-arm64": "bafybeidav3iude4rttb3pd2zolzuqudc3lqrjjsoyfpmkyzz4y44mkqaxu",
+      "win32-386": "bafybeibiktl5cab6vlirnrcsbt474vo3yg7i4vexagdjtwzs76kh6oyq3e",
+      "win32-amd64": "bafybeifs6xvbdczsacwprg6qsdfihmyso4ghciwwvilrefdvf3otyksfrq",
+      "win32-arm64": "bafybeihjp3byllb5eqjettg5kdiagvzm5jdhfi5qa26b33cbbrdrw337nm"
+    },
+    "v0.6.0": {
+      "darwin": "bafybeieplo3tqhpdfptzvflxbdlvw32vivyq7qkcukytby2iwjuhxwl3dy",
+      "linux-386": "bafybeibexjcu5cznafpkzdhqy4kr4yvuzta4fbl23pvpafyghpenpljyye",
+      "linux-amd64": "bafybeicvwncyy4djmluzpijhcytkzucwq6u3fiwfj67h3s35zgiuqwxouy",
+      "linux-arm64": "bafybeihisjdyw27jvomzt5lh4up74y6us2ty427re746mfm56ktl4xe25i",
+      "win32-386": "bafybeidqsj2v2vs6cy2rpdvgvppgiade75ixk5xhrskfk633sz7p2e5hu4",
+      "win32-amd64": "bafybeigpicf45xmla45jrhv6h7y7u5wm6ceumsv4uh6a24yrdsdjm5j3w4",
+      "win32-arm64": "bafybeiagcakk7xmp4igcird6wltezi5cmgg7hy24zmw4gvsbhrvbpqqfbq"
+    },
+    "v0.6.1": {
+      "darwin": "bafybeidivrf3tx6kosfvetoch3rlodfaiuugnk3bkhgwtphgga2sz6b74q",
+      "linux-386": "bafybeihmn6is6l7npw3le7mzyd63zxwkz5absk3k5hcrm2j3jt5yrbgi6y",
+      "linux-amd64": "bafybeifbrtxu7ez7xvobpp67lbxrrgjpvzjxmq7jyz76pecewyfaetqra4",
+      "linux-arm64": "bafybeifpvd2mumtvb6iqcfs22psbtnax75uwq3lyhfdar3kndo3yz7g7tq",
+      "win32-386": "bafybeibidsujejkkkplmdkvrw7qwsyvpz4idep2gwdhov4ttlzu72hcmmy",
+      "win32-amd64": "bafybeiabupok4gttrflrtuyfi2nmewaxs5lioccejqaqqmxakrydzbqdle",
+      "win32-arm64": "bafybeibe3c6rwk65d7yft5opwdnd7zutaptmepkr3cnz3kgdu76y5zedam"
+    },
+    "v0.7.0": {
+      "darwin": "bafybeig43qrgkh2rciccbx4sembvppp3x7tr7as6pvpk6m6i7d6yuyhium",
+      "linux-386": "bafybeibxq7w3pbqkdokvet5x4papjzfdpcup2s5km2seswy4k7s4rnsgbm",
+      "linux-amd64": "bafybeidpctx72jeh7hidmpdpneix3c7lmzpmfch4ttjbfwdkdnqx5gnxb4",
+      "linux-arm64": "bafybeifmu3ejv3by2bt3yz74dapxqdsfuoqqtfqrueks2sirk5xyhqcgmu",
+      "win32-386": "bafybeiaifa5s3ps7htnaaeebkg7mldknhza7322ml7svuea2n7zcouqmru",
+      "win32-amd64": "bafybeia7deh3cpf556eo6helnw4vchtxrmineowvgnamjrfx4ljisc5bjm",
+      "win32-arm64": "bafybeiex3urjyb3zmv7gpk3inmoba2wwhn7vvnv2e5hozf5vmj5occ6ika"
+    },
+    "v0.7.1": {
+      "darwin": "bafybeicaxisrwiwmdfbbkakudqokxcms3dgukdwbv44p3zqqo3d5ieadea",
+      "linux-386": "bafybeialikd2e3tpikcqcewxjkgc4ccwfwf3mn7fizndasian4svzvpac4",
+      "linux-amd64": "bafybeicpu2dgzg36726rs7dmokclfp7uj3smdsbqddtrwo24pov7vwja7i",
+      "linux-arm64": "bafybeigcccuvycjial53ehe4i2d65s7wwd5a6ychgqnmg6wywgms6zpjaa",
+      "win32-386": "bafybeid6fl2nlenn62lrwhpkgakhm3hvvwot3fsdvfiwvcq64hp5ycbleu",
+      "win32-amd64": "bafybeifskovbgindxd5eesoe2c2xqgtawp6spjh2uqaznfxpnnha3kgbxq",
+      "win32-arm64": "bafybeih22bnnresxfqrrp4iyztzaemdqywuuo4d2it2kqiz47euk3fbvua"
+    },
+    "v0.8.0": {
+      "darwin": "bafybeihn7lhxucrul76ow4qugvfqw3qa5rimhoebznq5ymywymfqhbbdle",
+      "linux-386": "bafybeihv4ybzmbrcdofm67bmk3c5dsgjv3tqypsuulznrefdcugxlrajpu",
+      "linux-amd64": "bafybeiezhkgmf3ojq5jf5d5w6vluxytegg75tkb4x7pggtmerot4pordyi",
+      "linux-arm64": "bafybeiavqfa4hoti7qbkfdcsrky5sli2kab22p2jfa247yi3kjaf5imd24",
+      "win32-386": "bafybeiflk5y53jdo5rlkhfvrt2zwprome6dizbrv3qjyofpnra74fsvdcm",
+      "win32-amd64": "bafybeiewwb46bkkyzp6trhaz55tbzfiklumvnqmdsj7wgq5uou4rnkalsu",
+      "win32-arm64": "bafybeig3u3d462c7ghm6hmcgw3tu3lvht5h5iabewbwxjbwpwo64fx7y2a"
     }
   }
 }
