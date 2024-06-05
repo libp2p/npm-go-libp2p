@@ -72,6 +72,15 @@
       "win32-386": "bafybeiflk5y53jdo5rlkhfvrt2zwprome6dizbrv3qjyofpnra74fsvdcm",
       "win32-amd64": "bafybeiewwb46bkkyzp6trhaz55tbzfiklumvnqmdsj7wgq5uou4rnkalsu",
       "win32-arm64": "bafybeig3u3d462c7ghm6hmcgw3tu3lvht5h5iabewbwxjbwpwo64fx7y2a"
+    },
+    "v0.8.1": {
+      "darwin": "bafybeigoh4qu2etu6m6bgjtr3a5xhany7kez7kvd24kolghq63if4asvem",
+      "linux-386": "bafybeiekrry2wz7cfgymjxos7mo62cayvhxomi6tlubkftmskifotwlbwu",
+      "linux-amd64": "bafybeibkujvac5tevrlyvhcl6ijgax6bhvn7xlljha63d3i5i4xlko3zjy",
+      "linux-arm64": "bafybeiaw3xh5jsy62cifvrq3wwwzvkwv6rhxeh4rikeotsj4x255qnos7i",
+      "win32-386": "bafybeihjqvjcjtk5exjldivugwihz24hfa7aa2tqgnzkh7i3ruvlfbyxce",
+      "win32-amd64": "bafybeib7qyt7g375r4zkofq7fgm7uhhaj773oajktptvgr7yaw62fd7zfm",
+      "win32-arm64": "bafybeidns2l7njhj4j4edsy4pktljibinswbyswzzbu4lo5resddnccylu"
     }
   }
 }
