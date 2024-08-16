@@ -73,7 +73,7 @@
     "build": "aegir build --bundle false"
   },
   "dependencies": {
-    "blockstore-core": "^4.2.0",
+    "blockstore-core": "^5.0.0",
     "browser-readablestream-to-it": "^2.0.7",
     "cachedir": "^2.3.0",
     "delay": "^6.0.0",
