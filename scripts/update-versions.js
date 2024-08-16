@@ -30,6 +30,7 @@ const manifest = JSON.parse(fs.readFileSync(versionsPath, {
 }))
 
 manifest.versions[version] = versions
+manifest.latest = version
 
 fs.writeFileSync(versionsPath, JSON.stringify(manifest, null, 2) + '\n', {
   encoding: 'utf8'
