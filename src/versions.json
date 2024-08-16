@@ -1,5 +1,5 @@
 {
-  "latest": "v0.8.1",
+  "latest": "v0.9.0",
   "versions": {
     "v0.4.0": {
       "darwin": "bafybeiafw7yn3c2uqu4wotihi6q7n2ycxt6c37pj2jcflbfdwpijmlgb2m",
@@ -81,6 +81,15 @@
       "win32-386": "bafybeihjqvjcjtk5exjldivugwihz24hfa7aa2tqgnzkh7i3ruvlfbyxce",
       "win32-amd64": "bafybeib7qyt7g375r4zkofq7fgm7uhhaj773oajktptvgr7yaw62fd7zfm",
       "win32-arm64": "bafybeidns2l7njhj4j4edsy4pktljibinswbyswzzbu4lo5resddnccylu"
+    },
+    "v0.9.0": {
+      "darwin": "bafybeifpfufeuzxsshu5gq5cnqqgaklnqljyxoovtlj2d3ajzo5xzere4a",
+      "linux-386": "bafybeihclkbiwxogwxs422cmmez7obig4vsjmxquosq5tmtu6w3buzo3dq",
+      "linux-amd64": "bafybeiauc5hbycynmq3tzhx2wqzdh7z3b2hnubixbbb5swsbexfjkkagcy",
+      "linux-arm64": "bafybeias5hc3uzdz3namhabqhiw4rg4vynhnkiaodtat7efdelzefaw47q",
+      "win32-386": "bafybeihbd34zbxmy55xvp2psf6j3rasq3ut5tnc2ufrv2utzrti4eblzlu",
+      "win32-amd64": "bafybeiev4j7nobutymufyv4p4iunmdcgzdbyz37w3ephde3n6jx4innjgm",
+      "win32-arm64": "bafybeihtunppzanqy63uzgqgmufyxpbcz7bcpm6ssefuqf7gbdboh4xjc4"
     }
   }
 }
