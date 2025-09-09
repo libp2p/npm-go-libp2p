@@ -1,6 +1,6 @@
 {
   "name": "go-libp2p",
-  "version": "0.0.6",
+  "version": "1.6.1",
   "description": "Install the latest go-libp2p binary",
   "author": "Protocol Labs, Inc.",
   "license": "Apache-2.0 OR MIT",
