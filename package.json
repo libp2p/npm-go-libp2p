@@ -166,7 +166,7 @@
     "it-last": "^3.0.2",
     "it-to-buffer": "^4.0.7",
     "multiformats": "^13.1.0",
-    "p-retry": "^6.2.0",
+    "p-retry": "^7.0.0",
     "package-config": "^5.0.0",
     "tar-fs": "^3.0.6",
     "tar-stream": "^3.1.7",
