@@ -162,7 +162,7 @@
     "cachedir": "^2.3.0",
     "delay": "^6.0.0",
     "gunzip-maybe": "^1.4.2",
-    "ipfs-unixfs-importer": "^15.1.5",
+    "ipfs-unixfs-importer": "^16.0.3",
     "it-last": "^3.0.2",
     "it-to-buffer": "^4.0.7",
     "multiformats": "^13.1.0",
