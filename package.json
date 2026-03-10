@@ -160,7 +160,7 @@
     "blockstore-core": "^6.1.2",
     "browser-readablestream-to-it": "^2.0.7",
     "cachedir": "^2.3.0",
-    "delay": "^6.0.0",
+    "delay": "^7.0.0",
     "gunzip-maybe": "^1.4.2",
     "ipfs-unixfs-importer": "^16.1.1",
     "it-last": "^3.0.2",
