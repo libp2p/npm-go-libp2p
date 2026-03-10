@@ -1,3 +1,9 @@
+## [1.7.0](https://github.com/libp2p/npm-go-libp2p/compare/v1.6.2...v1.7.0) (2026-03-10)
+
+### Features
+
+* update to go-libp2p-daemon 0.9.2 ([#78](https://github.com/libp2p/npm-go-libp2p/issues/78)) ([343a915](https://github.com/libp2p/npm-go-libp2p/commit/343a9152116ae97f3141f9d998b3d86e0a383c80))
+
 ## [1.6.2](https://github.com/libp2p/npm-go-libp2p/compare/v1.6.1...v1.6.2) (2026-03-10)
 
 ### Dependencies
