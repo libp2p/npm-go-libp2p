@@ -170,7 +170,7 @@
     "package-config": "^5.0.0",
     "tar-fs": "^3.0.6",
     "tar-stream": "^3.1.7",
-    "uint8arrays": "^5.0.3",
+    "uint8arrays": "^6.1.1",
     "unzip-stream": "^0.3.0"
   },
   "devDependencies": {
