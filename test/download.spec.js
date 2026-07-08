@@ -34,7 +34,7 @@ describe('download', () => {
   it('returns an error when dist url is 404', async () => {
     process.env.GO_LIBP2P_DIST_URL = 'https://dist.ipfs.io/notfound'
 
-    await expect(download({ version: 'v0.4.0', retries: 0 })).to.eventually.be.rejected
+    await expect(download({ version: 'v0.4.0' })).to.eventually.be.rejected
       .with.property('message').that.matches(/404/)
 
     delete process.env.GO_LIBP2P_DIST_URL
