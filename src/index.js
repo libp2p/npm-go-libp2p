@@ -16,9 +16,6 @@ const binaryLocations = isWin
       resolve(join(__dirname, '..', 'bin/p2pd'))
     ]
 
-// The package ships bin/p2pd as a small JS stub that the installer replaces with
-// the real binary. Treat the stub (a "#!" shebang script) as not-yet-installed
-// so first use triggers the download rather than returning the placeholder.
 /**
  * @param {string} file
  * @returns {boolean}
@@ -39,28 +36,16 @@ function isRealBinary (file) {
   }
 }
 
-// Returns the installed binary, or undefined if it has not been downloaded yet.
 const findBinary = () => binaryLocations.find(isRealBinary)
 
-// Download the binary by running the installer in a child process. The installer
-// is async, so running it synchronously here keeps path() synchronous while
-// reusing the same download, checksum and extraction logic. npm v12 makes
-// install scripts opt-in, so the binary usually arrives here on first use rather
-// than from a postinstall script.
 function installBinary () {
   execFileSync(process.execPath, [join(__dirname, 'post-install.js')], {
     cwd: resolve(join(__dirname, '..')),
-    // The installer logs progress to stdout; send it to this process's stderr so
-    // a programmatic path() keeps its own stdout clean for the value it returns.
     stdio: ['ignore', 2, 2]
   })
 }
 
 /**
- * Resolve the path to the p2pd binary, downloading it on first use when it has
- * not been installed yet. Pass `{ autoDownload: false }` to resolve only an
- * already-installed binary and throw when it is missing.
- *
  * @param {{ autoDownload?: boolean }} [options]
  * @returns {string}
  */

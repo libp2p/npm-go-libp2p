@@ -58,9 +58,7 @@ async function cachingFetchAndVerify (url, cid, options = {}) {
     console.info(`Cached file ${cachedFilePath} not found`)
     console.info(`Downloading ${url} to ${cacheDir}`)
 
-    // use got rather than the global fetch - draining a fetch response body
-    // stalls indefinitely on some platforms (e.g. GitHub's macos-26 runners),
-    // whereas got reads it reliably. got also handles retries and backoff.
+    // use got rather than the global fetch, which can hang reading the response body in CI
     const buf = await got(url, {
       retry: {
         limit: retries
