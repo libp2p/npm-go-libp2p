@@ -12,13 +12,10 @@ import os from 'node:os'
 import path from 'node:path'
 import * as url from 'node:url'
 import util from 'node:util'
-import browserReadableStreamToIt from 'browser-readablestream-to-it'
 import cachedir from 'cachedir'
-import delay from 'delay'
+import got from 'got'
 import gunzip from 'gunzip-maybe'
-import toBuffer from 'it-to-buffer'
 import { CID } from 'multiformats/cid'
-import retry from 'p-retry'
 import { packageConfigSync } from 'package-config'
 import tarFS from 'tar-fs'
 import { equals as uint8ArrayEquals } from 'uint8arrays/equals'
@@ -40,13 +37,12 @@ const DOWNLOAD_TIMEOUT_MS = 60000
  *
  * @param {string} url
  * @param {string} cid
- * @param {{ retries?: number, retryDelay?: number }} [options]
+ * @param {{ retries?: number }} [options]
  */
 async function cachingFetchAndVerify (url, cid, options = {}) {
   const cacheDir = process.env.NPM_GO_LIBP2P_CACHE || cachedir('npm-go-libp2p')
   const filename = url.split('/').pop()
   const retries = options.retries ?? 10
-  const retryDelay = options.retryDelay ?? 5000
 
   if (!filename) {
     throw new Error('Invalid URL')
@@ -62,42 +58,17 @@ async function cachingFetchAndVerify (url, cid, options = {}) {
     console.info(`Cached file ${cachedFilePath} not found`)
     console.info(`Downloading ${url} to ${cacheDir}`)
 
-    const buf = await retry(async () => {
-      const signal = AbortSignal.timeout(DOWNLOAD_TIMEOUT_MS)
-
-      try {
-        const res = await fetch(url, {
-          signal
-        })
-
-        console.info(`${url} ${res.status} ${res.statusText}`)
-
-        if (!res.ok) {
-          throw new Error(`${res.status}: ${res.statusText}`)
-        }
-
-        const body = res.body
-
-        if (body == null) {
-          throw new Error('Response had no body')
-        }
-
-        return await toBuffer(browserReadableStreamToIt(body))
-      } catch (err) {
-        if (signal.aborted) {
-          console.error(`Download timed out after ${DOWNLOAD_TIMEOUT_MS}ms`)
-        }
-
-        throw err
+    // use got rather than the global fetch - draining a fetch response body
+    // stalls indefinitely on some platforms (e.g. GitHub's macos-26 runners),
+    // whereas got reads it reliably. got also handles retries and backoff.
+    const buf = await got(url, {
+      retry: {
+        limit: retries
+      },
+      timeout: {
+        request: DOWNLOAD_TIMEOUT_MS
       }
-    }, {
-      retries,
-      onFailedAttempt: async (err) => {
-        console.error('Attempt', err.attemptNumber, 'failed. There are', err.retriesLeft, 'retries left', err)
-        console.info('Waiting for', retryDelay / 1000, 'seconds before retrying')
-        await delay(retryDelay)
-      }
-    })
+    }).buffer()
 
     // download file
     fs.writeFileSync(cachedFilePath, buf)
@@ -154,7 +125,6 @@ function unpack (installPath, stream) {
  * @param {string} [options.arch]
  * @param {string} [options.installPath]
  * @param {number} [options.retries]
- * @param {number} [options.retryDelay]
  */
 function cleanArguments (options = {}) {
   const conf = packageConfigSync('go-libp2p', {
@@ -171,8 +141,7 @@ function cleanArguments (options = {}) {
     arch: process.env.TARGET_ARCH ?? options.arch ?? goenv.GOARCH,
     distUrl: process.env.GO_LIBP2P_DIST_URL ?? conf.distUrl,
     installPath: options.installPath ? path.resolve(options.installPath) : process.cwd(),
-    retries: Number(process.env.RETRIES ?? options.retries ?? 10),
-    retryDelay: Number(process.env.RETRY_DELAY ?? options.retryDelay ?? 5000)
+    retries: Number(process.env.RETRIES ?? options.retries ?? 10)
   }
 }
 
@@ -225,13 +194,11 @@ async function getDownloadURL (version, platform, arch, distUrl) {
  * @param {string} options.installPath
  * @param {string} options.distUrl
  * @param {number} options.retries
- * @param {number} options.retryDelay
  */
-async function downloadFile ({ version, platform, arch, installPath, distUrl, retries, retryDelay }) {
+async function downloadFile ({ version, platform, arch, installPath, distUrl, retries }) {
   const { cid, url } = await getDownloadURL(version, platform, arch, distUrl)
   const data = await cachingFetchAndVerify(url, cid, {
-    retries,
-    retryDelay
+    retries
   })
 
   await unpack(installPath, data)
@@ -321,7 +288,6 @@ async function link ({ depBin }) {
  * @param {string} [options.arch]
  * @param {string} [options.installPath]
  * @param {number} [options.retries]
- * @param {number} [options.retryDelay]
  * @returns {Promise<string>}
  */
 export async function download (options = {}) {
