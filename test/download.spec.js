@@ -40,7 +40,7 @@ describe('download', () => {
     delete process.env.GO_LIBP2P_DIST_URL
   })
 
-  it('path returns undefined when no binary has been downloaded', async () => {
-    expect(detectLocation).to.throw(/not found/, 'Path did not throw when binary is not installed')
+  it('path throws when no binary is installed and autoDownload is disabled', () => {
+    expect(() => detectLocation({ autoDownload: false })).to.throw(/not found/, 'Path did not throw when binary is not installed')
   })
 })
