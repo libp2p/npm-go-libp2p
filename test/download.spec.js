@@ -34,13 +34,13 @@ describe('download', () => {
   it('returns an error when dist url is 404', async () => {
     process.env.GO_LIBP2P_DIST_URL = 'https://dist.ipfs.io/notfound'
 
-    await expect(download({ version: 'v0.4.0', retries: 0 })).to.eventually.be.rejected
+    await expect(download({ version: 'v0.4.0' })).to.eventually.be.rejected
       .with.property('message').that.matches(/404/)
 
     delete process.env.GO_LIBP2P_DIST_URL
   })
 
-  it('path returns undefined when no binary has been downloaded', async () => {
-    expect(detectLocation).to.throw(/not found/, 'Path did not throw when binary is not installed')
+  it('path throws when no binary is installed and autoDownload is disabled', () => {
+    expect(() => detectLocation({ autoDownload: false })).to.throw(/not found/, 'Path did not throw when binary is not installed')
   })
 })
