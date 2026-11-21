@@ -82,6 +82,7 @@ async function cachingFetchAndVerify (url, cid) {
 /**
  * @param {string} installPath
  * @param {import('stream').Readable} stream
+ * @returns {Promise<void>}
  */
 function unpack (installPath, stream) {
   return new Promise((resolve, reject) => {
@@ -89,7 +90,7 @@ function unpack (installPath, stream) {
       return stream.pipe(
         unzip
           .Extract({ path: installPath })
-          .on('close', resolve)
+          .on('close', () => { resolve() })
           .on('error', reject)
       )
     }
@@ -99,7 +100,7 @@ function unpack (installPath, stream) {
       .pipe(
         tarFS
           .extract(installPath)
-          .on('finish', resolve)
+          .on('finish', () => { resolve() })
           .on('error', reject)
       )
   })
